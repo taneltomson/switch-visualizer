@@ -1,0 +1,39 @@
+\select@language {estonian}
+\select@language {estonian}
+\select@language {estonian}
+\select@language {english}
+\select@language {estonian}
+\contentsline {section}{\numberline {1}Sissejuhatus}{7}{section.1}
+\contentsline {section}{\numberline {2}Sarnased lahendused}{8}{section.2}
+\contentsline {section}{\numberline {3}S\IeC {\"u}steemi kirjeldus}{9}{section.3}
+\contentsline {subsection}{\numberline {3.1}Kasutamise eeldused}{9}{subsection.3.1}
+\contentsline {subsection}{\numberline {3.2}Rakenduse n\IeC {\~o}uded}{9}{subsection.3.2}
+\contentsline {section}{\numberline {4}Kasutatud tehnoloogiad}{10}{section.4}
+\contentsline {subsection}{\numberline {4.1}Kasutamise eeldused}{10}{subsection.4.1}
+\contentsline {subsection}{\numberline {4.2}Rakenduse n\IeC {\~o}uded}{10}{subsection.4.2}
+\contentsline {section}{\numberline {5}Title of Section 2}{11}{section.5}
+\contentsline {subsection}{\numberline {5.1}Title of Subsection 1}{11}{subsection.5.1}
+\contentsline {subsubsection}{\numberline {5.1.1}Title of Subsubsection 1}{11}{subsubsection.5.1.1}
+\contentsline {subsubsection}{\numberline {5.1.2}Title of Subsubsection 2}{11}{subsubsection.5.1.2}
+\contentsline {subsection}{\numberline {5.2}Title of Subsection 2}{11}{subsection.5.2}
+\contentsline {paragraph}{Type rules for integers.}{11}{section*.29}
+\contentsline {paragraph}{Type rules for rational numbers.}{11}{section*.30}
+\contentsline {subsection}{\numberline {5.3}How to use references}{11}{subsection.5.3}
+\contentsline {paragraph}{Cross-references to figures, tables and other document elements.}{11}{section*.31}
+\contentsline {paragraph}{Citations.}{12}{section*.32}
+\contentsline {section}{\numberline {6}How to add figures and pictures to your thesis}{13}{section.6}
+\contentsline {section}{\numberline {7}Other Ways to Represent Data}{16}{section.7}
+\contentsline {subsection}{\numberline {7.1}Tables}{16}{subsection.7.1}
+\contentsline {subsection}{\numberline {7.2}Lists}{16}{subsection.7.2}
+\contentsline {subsection}{\numberline {7.3}Math mode}{16}{subsection.7.3}
+\contentsline {paragraph}{Inference Rules}{16}{section*.38}
+\contentsline {subsection}{\numberline {7.4}algorithm2e}{17}{subsection.7.4}
+\contentsline {subsection}{\numberline {7.5}Pseudocode}{17}{subsection.7.5}
+\contentsline {subsection}{\numberline {7.6}Frame Around Information}{17}{subsection.7.6}
+\contentsline {section}{\numberline {8}Conclusion}{18}{section.8}
+\contentsline {section}{Viidatud kirjandus}{19}{section*.44}
+\contentsline {section}{Lisad}{20}{section*.45}
+\contentsline {subsection}{I. Glossary}{20}{section*.46}
+\select@language {estonian}
+\contentsline {subsection}{II. Litsents}{21}{section*.47}
+\select@language {estonian}

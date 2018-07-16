@@ -1,0 +1,6 @@
+mustand.txt
+
+thesis/figures/.*
+bachelors-thesis-template.log
+
+.idea/

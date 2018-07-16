@@ -1,0 +1,33 @@
+\begin{thebibliography}{Kam12}
+
+\bibitem[BGZ09]{certicrypt}
+Gilles Barthe, Benjamin Gr{\'e}goire, and Santiago {Zanella B{\'e}guelin}.
+\newblock Formal certification of code-based cryptographic proofs.
+\newblock In {\em 36th ACM SIGPLAN-SIGACT Symposium on Principles of
+  Programming Languages, POPL 2009}, pages 90--101. ACM, 2009.
+
+\bibitem[Bla]{proVerif}
+Bruno Blanchet.
+\newblock {Proverif: Cryptographic protocol verifier in the formal model}.
+\newblock \url{http://www.proverif.ens.fr/}.
+
+\bibitem[BR04]{GameB_1}
+Mihir Bellare and Phillip Rogaway.
+\newblock Code-based game-playing proofs and the security of triple encryption.
+\newblock Cryptology ePrint Archive, Report 2004/331, 2004.
+\newblock \url{http://eprint.iacr.org/}.
+
+\bibitem[Kam12]{kamm12}
+Liina Kamm.
+\newblock {ProveIt -- How to make proving cryptographic protocols less
+  tedious}.
+\newblock Talk at the 21st Estonian Computer Science Theory Days at Kubija,
+  January 2012.
+
+\bibitem[Sho04]{GameB_2}
+Victor Shoup.
+\newblock Sequences of games: a tool for taming complexity in security proofs.
+\newblock Cryptology ePrint Archive, Report 2004/332, 2004.
+\newblock \url{http://eprint.iacr.org/}.
+
+\end{thebibliography}
