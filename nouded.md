@@ -10,7 +10,9 @@ Rakenduse kasutamise eeldused:
 Rakenduse nõuded:
 
 1. Rakenduse käivitamine toimub käsurealt, vajalik python (koos vähemalt ühe SNMP teegiga) ja SNMP
-2. Rakenduse sisendiks on ühe või mitme võrgukommutaatori aadress ja seadmetes seadistatud SNMP kommuuni nimi
+2.
+    a. Rakenduse sisendiks on ühe või mitme võrgukommutaatori aadress ja seadmetes seadistatud SNMP kommuuni nimi
+    b. ? Autodiscovery koos piiridega - võimalus anda ette võrgu piirid, kust otsida
 3. Kui antakse ette mitu seadet, on võimalus määrata erinevatele seadmetele erinevad SNMP kommuunide nimed
 
 4. Rakendus küsib igalt sisendiks saadud seadmelt LLDP/CDP andmed (nimi, ip, mac; ühenduste füüsiline port, nimi, ip, mac)
@@ -21,8 +23,10 @@ Rakenduse nõuded:
 8. Rakendus loob antud andmete põhjal staatilise veebilehe (.html), kus kuvatakse graaf võrgukommutaatorite kohta
 9. Staatilise veebilehe vaatamiseks pole vaja internetiühendust (CSS ja JS lokaalsed)
 10. Graafi tipud on võrgukommutaatorid
-11. ? Graafi väiksemad (vähem silmapaistvavad) tipud on võrgukommutaatoritesse ühendatud seadmed (mis pole kommutaatorid)
-12. Graafi servad tippude vahel on võrgukommutaatorite ühendused
+11.
+    a. ? Graafi väiksemad (vähem silmapaistvavad) tipud on võrgukommutaatoritesse ühendatud seadmed (mis pole kommutaatorid)
+    b. ? Või siis vaikimisi peidus ja peab lahti klikkima
+12. Graafi servad tippude vahel on võrgukommutaatorite ühendused, erinevad ühenduste kiirused on tähistatud erinevalt
 13. Graafis on vaikimisi paigutus mõistlik, see tähendab, et tipud ei kattu ja kui tekib mitu graafi, kuvatakse need üksteisest pisut eemal
 
 14. Graafis on võimalik seadmeid enda suva järgi lohistada
