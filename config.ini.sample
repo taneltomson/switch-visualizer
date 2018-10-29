@@ -1,0 +1,12 @@
+[Application Config]
+
+# Default community string is used when switch has no specific community string set
+defaultCommunityString = public
+
+# Switches to be looked up.
+switches = switch-with-specific-community.example.com somecommunity
+           switch-with-default-community.example.com
+           another-switch-with-default-community.example.com
+
+# Enable or disable application logging (true or false)
+debug = false

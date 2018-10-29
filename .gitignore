@@ -1,6 +1,10 @@
-mustand.txt
+config.ini
 
+data.js
+
+mustand.txt
 thesis/figures/.*
 bachelors-thesis-template.log
 
+*.pyc
 .idea/

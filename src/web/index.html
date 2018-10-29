@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link href="style.css" rel="stylesheet"/>
+    <meta charset=utf-8/>
+    <meta name="viewport" content="user-scalable=no, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, minimal-ui">
+    <title>Switch visualizer</title>
+    <script src="lib/cytoscape-3.2.18.min.js"></script>
+    <script src="lib/jquery-3.3.1.min.js"></script>
+    <script src="lib/jquery.qtip-2.2.0.min.js"></script>
+    <link href="lib/jquery.qtip-2.2.0.min.css" rel="stylesheet" type="text/css" />
+    <script src="lib/cytoscape-qtip-2.7.0.js"></script>
+</head>
+<body>
+    <div id="cy"></div>
+
+    <button id="resetBtn">Reload graph layout from data</button>
+
+    <!-- Load application code at the end to ensure DOM is loaded -->
+    <script src="data.js"></script>
+    <script src="code.js"></script>
+</body>
+</html>
