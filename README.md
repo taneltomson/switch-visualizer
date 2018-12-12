@@ -10,13 +10,14 @@ TODO:
 * LLDP data (slightly troublesome due to CDP and LLDP doing things differently)
 * Tweaks in data asked/shown
 * Tweaks in web page design
+* Logging to a file
 
 #### Requirements:
 * Linux (might work on others but haven't tested)
 * Python 3
 * easysnmp python library (needs libsnmp and snmp mibs).
 See https://easysnmp.readthedocs.io/en/latest/#installation for instructions
-* Switches (duh) that share CDP data over SNMP.
+* Switches (duh) that share CDP/LLDP data over SNMP.
 
 #### Usage
 * `$ git clone https://github.com/taneltomson/switch-visualizer.git`

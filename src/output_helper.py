@@ -2,40 +2,48 @@ import os
 import logging as log
 
 
-def create_js_data_file(data):
-    tab = '  '
+tab = '    '
 
+
+def get(item, key):
+    return item[key] if key in item.keys() else ''
+
+
+def write_line(num_tabs, msg, file):
+    file.write(tab * num_tabs + msg + '\n')
+
+
+def create_js_data_file(data):
     log.info('Writing output')
 
     with open(os.path.join(os.path.dirname(__file__), 'web/data.js'), 'w') as outfile:
-        outfile.write('elements_data = {\n')
+        write_line(0, 'elements_data = {', outfile)
 
-        outfile.write(tab + 'nodes: [\n')
+        write_line(1, 'nodes: [', outfile)
         for (sysName, node_data) in data['nodes'].items():
-            outfile.write(tab + tab + '{ data: {\n')
-            outfile.write(tab + tab + tab + 'id: "' + sysName + '",\n')
-            outfile.write(tab + tab + tab + 'otherDevices: [\n')
+            write_line(2, '{ data: {', outfile)
+            write_line(3, 'id: "' + sysName + '",', outfile)
+            write_line(3, 'otherDevices: [', outfile)
             if 'otherDevices' in node_data.keys():
                 for other_device in node_data['otherDevices']:
-                    outfile.write(tab + tab + tab + tab + '{\n')
-                    outfile.write(tab + tab + tab + tab + tab + 'sysName: "' + other_device['sysName'] + '",\n')
-                    outfile.write(tab + tab + tab + tab + tab + 'address: "' + other_device['address'] + '",\n')
-                    outfile.write(tab + tab + tab + tab + tab + 'srcPort: "' + other_device['srcPort'] + '",\n')
-                    outfile.write(tab + tab + tab + tab + tab + 'trgPort: "' + other_device['trgPort'] + '",\n')
-                    outfile.write(tab + tab + tab + tab + '},\n')
-            outfile.write(tab + tab + tab + '],\n')
+                    write_line(4, '{', outfile)
+                    write_line(5, 'sysName: "' + other_device['sysName'] + '",', outfile)
+                    write_line(5, 'address: "' + get(other_device, 'address') + '",', outfile)
+                    write_line(5, 'srcPort: "' + get(other_device, 'srcPort') + '",', outfile)
+                    write_line(5, 'trgPort: "' + get(other_device, 'trgPort') + '",', outfile)
+                    write_line(4, '},', outfile)
+            write_line(3, '],', outfile)
+            write_line(2, ' } },', outfile)
+        write_line(1, '],', outfile)
 
-            outfile.write(tab + tab + ' } },\n')
-        outfile.write(tab + '],\n')
-
-        outfile.write(tab + 'edges: [\n')
+        write_line(1, 'edges: [', outfile)
         for name, values in data['edges'].items():
-            outfile.write(tab + tab + '{ data: {\n')
-            outfile.write(tab + tab + tab + 'source: "' + values['source'] + '",\n')
-            outfile.write(tab + tab + tab + 'target: "' + values['target'] + '",\n')
-            outfile.write(tab + tab + tab + 'targetPort: "' + values['targetPort'] + '",\n')
-            outfile.write(tab + tab + tab + 'sourcePort: "' + values['sourcePort'] + '"\n')
-            outfile.write(tab + tab + ' } },\n')
-        outfile.write(tab + '],\n')
+            write_line(2, '{ data: {', outfile)
+            write_line(3, 'source: "' + values['source'] + '",', outfile)
+            write_line(3, 'target: "' + values['target'] + '",', outfile)
+            write_line(3, 'targetPort: "' + values['targetPort'] + '",', outfile)
+            write_line(3, 'sourcePort: "' + values['sourcePort'] + '"', outfile)
+            write_line(2, ' } },', outfile)
+        write_line(1, '],', outfile)
 
-        outfile.write('}\n')
+        write_line(0, '}', outfile)
