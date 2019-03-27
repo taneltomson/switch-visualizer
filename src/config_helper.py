@@ -12,8 +12,9 @@ def read_config_file():
     config = configparser.ConfigParser()
 
     switches = []
+    file_path = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'config.ini')
     try:
-        config.read(os.path.join(os.path.dirname(__file__), '../config.ini'))
+        config.read(file_path)
         config = config['Application Config']
 
         if 'debug' in config.keys() and config['debug'].lower() == 'false':
@@ -29,7 +30,7 @@ def read_config_file():
             switches.append((switch[0],
                              switch[1] if len(switch) == 2 else default_community))
 
-    except KeyError as e:
-        die_with_error("Config file not found or incorrect", e)
+    except KeyError as key:
+        die_with_error("Config file " + file_path + " not found or incorrect. Did not find config ", key)
 
     return switches

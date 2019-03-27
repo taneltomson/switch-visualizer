@@ -11,6 +11,7 @@ TODO:
 * Tweaks in data asked/shown
 * Tweaks in web page design
 * Logging to a file
+* tooltips save on page leave? maybe use a table for other devices? More info on other devices?
 
 #### Requirements:
 * Linux (might work on others but haven't tested)

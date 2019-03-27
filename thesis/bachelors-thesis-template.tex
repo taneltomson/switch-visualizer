@@ -14,11 +14,14 @@
 
 \documentclass[12pt]{article}
 
-% A package for setting layout and margins for your thesis 
+% A package for setting layout and margins for your thesis
 \usepackage[a4paper]{geometry}
 
+% Fix long urls in footnotes
+\usepackage[hyphens]{url}
+
 %%=== A4 page setup ===
-%\setlength{\paperwidth}{21.0cm} 
+%\setlength{\paperwidth}{21.0cm}
 %\setlength{\paperheight}{29.7cm}
 %\setlength{\textwidth}{16cm}
 %\setlength{\textheight}{25cm}
@@ -26,13 +29,13 @@
 
 % When you write in Estonian then you want to use text with right character set
 % By default LaTeX does not know what to do with õäöu letters. You have to specify
-% a correct input and font encoding. For that you have to Google the Web     
+% a correct input and font encoding. For that you have to Google the Web
 %
-% For TexShop under MacOS X. The right lines are 
+% For TexShop under MacOS X. The right lines are
 %\usepackage[applemac]{inputenc}
 %\usepackage[T1]{fontenc} %Absolutely critical for *hyphenation* of words with non-ASCII letters.
 %
-% For Windows and Linux the right magic lines are   
+% For Windows and Linux the right magic lines are
 % \usepackage[latin1]{inputenc}
 % \usepackage[latin5]{inputenc}
 %%\usepackage[utf8]{inputenc} %Package inputenc Error: Unicode char ´ (U+B4) not set up for use with LaTeX
@@ -47,8 +50,8 @@
 \usepackage{inconsolata} %nicer font for code listings. (Use \ttfamily for lstinline bastype)
 
 
-% Use package babel for English or Estonian 
-% If you use Estonian make sure that Estonian hyphenation is installed 
+% Use package babel for English or Estonian
+% If you use Estonian make sure that Estonian hyphenation is installed
 % - hypen-estonian or eehyp packages
 %
 %===Choose the main language in thesis
@@ -56,7 +59,7 @@
 \usepackage[english, estonian]{babel} %the thesis is in Estonian
 
 
-% Change Babel document elements 
+% Change Babel document elements
 \addto\captionsestonian{%
   \renewcommand{\refname}{Viidatud kirjandus}%
   \renewcommand{\appendixname}{Lisad}%
@@ -75,19 +78,19 @@
 %\addbibresource{bachelor-thesis.bib}
 
 
-% General packages for math in general, theorems and symbols 
+% General packages for math in general, theorems and symbols
 % Read ftp://ftp.ams.org/ams/doc/amsmath/short-math-guide.pdf for further information
-\usepackage{amsmath} 
+\usepackage{amsmath}
 \usepackage{amsthm}
 \usepackage{amssymb}
 
-% Optional calligraphic fonts    
+% Optional calligraphic fonts
 % \usepackage[mathscr]{eucal}
 
 % Print a dot instead of colon in table or figure captions
 \usepackage[labelsep=period]{caption}
 
-% Packages for building tables and tabulars 
+% Packages for building tables and tabulars
 \usepackage{array}
 \usepackage{tabu}   % Wide lines in tables
 \usepackage{xspace} % Non-eatable spaces in macros
@@ -104,15 +107,15 @@
 
 % Packages for defining colourful text together with some colours
 \usepackage{color}
-\usepackage{xcolor} 
-%\definecolor{dkgreen}{rgb}{0,0.6,0}
+\usepackage{xcolor}
+\definecolor{dkgreen}{rgb}{0,0.6,0}
 %\definecolor{gray}{rgb}{0.5,0.5,0.5}
 \definecolor{mauve}{rgb}{0.58,0,0.82}
 
 
 % Standard package for drawing algorithms
 % Since the thesis in article format we must define \chapter for
-% the package algorithm2e (otherwise obscure errors occur) 
+% the package algorithm2e (otherwise obscure errors occur)
 \let\chapter\section
 \usepackage[ruled, vlined, linesnumbered]{algorithm2e}
 
@@ -134,14 +137,14 @@
 
 % Proper way to create coloured code listings
 \usepackage{listings}
-\lstset{ 
+\lstset{
   %language=python,                % the language of the code
   language=C++,
   basicstyle=\footnotesize,        % the size of the fonts that are used for the code
   %numbers=left,                   % where to put the line-numbers
   %numberstyle=\footnotesize,      % the size of the fonts that are used for the line-numbers
-  numberstyle=\tiny\color{gray}, 
-  stepnumber=1,                    % the step between two line-numbers. If it's 1, each line 
+  numberstyle=\tiny\color{gray},
+  stepnumber=1,                    % the step between two line-numbers. If it's 1, each line
                                    % will be numbered
   numbersep=5pt,                   % how far the line-numbers are from the code
   backgroundcolor=\color{white},   % choose the background color. You must add \usepackage{color}
@@ -150,7 +153,7 @@
   showtabs=false,                  % show tabs within strings adding particular underscores
   frame = lines,
   %frame=single,                   % adds a frame around the code
-  rulecolor=\color{black},		   % if not set, the frame-color may be changed on line-breaks within 
+  rulecolor=\color{black},		   % if not set, the frame-color may be changed on line-breaks within
                                    % not-black text (e.g. commens (green here))
   tabsize=2,                       % sets default tabsize to 2 spaces
   captionpos=b,                    % sets the caption-position to bottom
@@ -165,27 +168,30 @@
   morekeywords={*,game, fun}       % if you want to add more keywords to the set
 }
 
+% Don't add different sized spaces to my code!
+\lstset{basicstyle=\ttfamily\footnotesize,breaklines=true}
+
 
 % Obscure packages to write logic formulae and program semantics
 % Unless you do a bachelor thesis on program semantics or static code analysis you do not need that
 % http://logicmatters.net/resources/ndexamples/proofsty3.html <= writing type rules => use semantic::inference
 % ftp://tug.ctan.org/tex-archive/macros/latex/contrib/semantic/semantic.pdf
 \usepackage{proof}
-\usepackage{semantic} 
+\usepackage{semantic}
 \setlength{\inferLineSkip}{4pt}
 \def\predicatebegin #1\predicateend{$\Gamma \vdash #1$}
 
 % If you really want to draw figures in LaTeX use packages tikz or pstricks
-% However, getting a corresponding illustrations is really painful  
+% However, getting a corresponding illustrations is really painful
 
 
-% Define your favorite macros that you use inside the thesis 
+% Define your favorite macros that you use inside the thesis
 % Name followed by non-removable space
 \newcommand{\proveit}{ProveIt\xspace}
 
 % Macros that make sure that the math mode is set
 \newcommand{\typeF}[1] {\ensuremath{\mathsf{type_{#1}}}\xspace}
-\newcommand{\opDiv}{\ensuremath{\backslash \mathsf{div}}\xspace} 
+\newcommand{\opDiv}{\ensuremath{\backslash \mathsf{div}}\xspace}
 
 % Nice Todo box
 \newcommand{\TODO}{\todo[inline]}
@@ -239,7 +245,7 @@ Informaatika õppekava\\%[2mm]
 \begin{flushright}
  {
  \setlength{\extrarowheight}{5pt}
- \begin{tabular}{r l} 
+ \begin{tabular}{r l}
   \sffamily \iflanguage{english}{Supervisor}{Juhendaja}: & \sffamily Meelis Roos, MSc \\
  \end{tabular}
  }
@@ -253,11 +259,11 @@ Informaatika õppekava\\%[2mm]
 
 %===END TITLE PAGE
 
-% If the thesis is printed on both sides of the page then 
+% If the thesis is printed on both sides of the page then
 % the second page must be must be empty. Comment this out
 % if you print only to one side of the page comment this out
 %\newpage
-%\thispagestyle{empty}    
+%\thispagestyle{empty}
 %\phantom{Text to fill the page}
 % END OF EXTRA PAGE WITHOUT NUMBER
 
@@ -274,10 +280,24 @@ Informaatika õppekava\\%[2mm]
 
 \noindent\textbf{Abstract:}
 
+\TODO{Abstract}
 \noindent
-Many interpreting program languages are dynamically typed, such as Visual Basic or Python. As a result, it is easy to write programs that crash due to mismatches of provided and expected data types.  One possible solution to this problem is automatic type derivation during compilation. In this work, we consider study how to detect type errors in the \textsc{Whitespace} language by using fourth order logic formulae as annotations. The main result of this thesis is a new triple-exponential type inference algorithm for the fourth order logic formulae. This is a significant advancement as the question whether there exists such an algorithm was an open question. 
-All previous attempts to solve the problem lead lead to logical inconsistencies or required tedious user interaction in terms of interpretative dance. Although the resulting algorithm is slightly inefficient, it can be used to detect obscure programming bugs in the \textsc{Whitespace} language. The latter significantly improves productivity. Our practical experiments showed that productivity is comparable to average Java programmer.   
-From a theoretical viewpoint, the result is only a small advancement in rigorous treatment of higher order logic formulae. The results obtained by us do not generalise to formulae with the fifth or higher order. 
+%Many interpreting program languages are dynamically typed, such as Visual Basic or Python. As a
+%result, it is easy to write programs that crash due to mismatches of provided and expected data
+%types.  One possible solution to this problem is automatic type derivation during compilation.
+%In this work, we consider study how to detect type errors in the \textsc{Whitespace} language by
+%using fourth order logic formulae as annotations. The main result of this thesis is a new
+%triple-exponential type inference algorithm for the fourth order logic formulae. This is a
+%significant advancement as the question whether there exists such an algorithm was an open
+%question.
+%All previous attempts to solve the problem lead lead to logical inconsistencies or required
+%tedious user interaction in terms of interpretative dance. Although the resulting algorithm is
+%slightly inefficient, it can be used to detect obscure programming bugs in the
+%\textsc{Whitespace} language. The latter significantly improves productivity. Our practical
+%experiments showed that productivity is comparable to average Java programmer.
+%From a theoretical viewpoint, the result is only a small advancement in rigorous treatment of
+%higher order logic formulae. The results obtained by us do not generalise to formulae with the
+%fifth or higher order.
 
 \vspace*{1ex}
 
@@ -299,7 +319,7 @@ From a theoretical viewpoint, the result is only a small advancement in rigorous
 \noindent\textbf{\large Võrgukommutaatorite visualiseerimine}
 \vspace*{1ex}
 
-\noindent\textbf{Lühikokkuvõte:} 
+\noindent\textbf{Lühikokkuvõte:}
 
 %\noindent ...
 
@@ -348,7 +368,13 @@ the paper is significantly enhanced by their inclusion.}
 \newpage
 \listoftodos[Unsolved issues]
 \TODO{Eemalda lõplikust versioonist}
-% END OF TODO PAGE 
+% END OF TODO PAGE
+
+
+
+
+
+
 
 
 \newpage
@@ -356,10 +382,20 @@ the paper is significantly enhanced by their inclusion.}
 
 \TODO{What is it in simple terms (title)?}
 \TODO{Why should anyone care?}
-\TODO{What was my contribution?} 
+\TODO{What was my contribution?}
 \TODO{What you are doing in each section (a sentence or two per section)}
 
+\TODO{Mingi sisssejuhatus võrgutehnoloogiasse; võrgukommutaatorite selgitus}
+
 Tip: if it's hard for you to start writing, then try to split it to smaller parts, e.g. if the title is ``Type Inference for a Cryptographic Protocol Prover Tool'' then the ``What is it'' can be divided into ``what is type inference'', ``what is cryptographic protocol'' and ``what is the prover tool''. These three can also be split to smaller parts etc.
+
+
+
+
+
+
+
+
 
 
 \newpage
@@ -377,283 +413,606 @@ puudused.
 https://github.com/ytti/netcrawl
 
 
+
+
+
+
+
+
+
+
+
+
+
+
 \newpage
-\section{Süsteemi kirjeldus}
+\section{Rakenduse kirjeldus}
+Enne rakenduse programmeerimist fikseeriti rakenduse nõuded.
+Järgnev peatükk kirjeldab eeldused rakenduse käivitamiseks ning selle nõuded.
+
+\TODO{Riistvara ja tarkvara jm nõuded}
 
 \subsection{Kasutamise eeldused}
-\TODO{Rakenduse nõuded}
+\TODO{Täpsustada, mis andmeid SNMP peab jagama}
+\TODO{CDP kas mõistetesse või lehekülje alla}
+Rakenduse kasutamiseks on tehtud eeldus, et kasutajal on kontroll kaardistatavate võrgukommutaatorite üle.
+Võrgukommutaatorid peavad olema programmi jaoks kättesaadavad ja vajalikku informatsiooni edastama.
+See tähendab, et võrgukommutaatoritel peab töötama SNMP teenus ja see peab olema seadistatud jagama CDP andmeid.
 
 \subsection{Rakenduse nõuded}
-\TODO{Rakenduse nõuded}
+\TODO{Eraldada funktsionaalsed ja mittefunktsionaalsed?}
+\TODO{Nimekiri üle käia}
+\begin{enumerate}
+    \item Rakenduse käivitamine toimub käsurealt, vajalik python (koos vähemalt ühe SNMP teegiga) ja SNMP
+    \item Rakenduse sisendiks on ühe või mitme võrgukommutaatori aadress ja seadmetes seadistatud SNMP kommuuni nimi
+    \item ? Autodiscovery koos piiridega - võimalus anda ette võrgu piirid, kust otsida
+    \item \label{itm:req:diffcommunities} Kui antakse ette mitu seadet, on võimalus määrata
+    erinevatele seadmetele erinevad SNMP kommuunide nimed
+
+    \item Rakendus küsib igalt sisendiks saadud seadmelt LLDP/CDP andmed (nimi, ip, mac; ühenduste füüsiline port, nimi, ip, mac)
+    \item Kui seadmega on ühendatud veel kommutaatoreid, küsitakse ka neilt andmed
+    \item Rakendus töötleb ja vormindab saadud andmed
+    \item Tekkinud vead kuvatakse kasutajale mõistlikult (mis juhtus, mida teha)
+
+    \item Rakendus loob antud andmete põhjal staatilise veebilehe (.html), kus kuvatakse graaf võrgukommutaatorite kohta
+    \item Staatilise veebilehe vaatamiseks pole vaja internetiühendust (CSS ja JS lokaalsed)
+    \item Graafi tipud on võrgukommutaatorid
+    \item ? Graafi väiksemad (vähem silmapaistvavad) tipud on võrgukommutaatoritesse ühendatud seadmed (mis pole kommutaatorid)
+    \item ? Või siis vaikimisi peidus ja peab lahti klikkima
+    \item Graafi servad tippude vahel on võrgukommutaatorite ühendused, erinevad ühenduste kiirused on tähistatud erinevalt
+    \item Graafis on vaikimisi paigutus mõistlik, see tähendab, et tipud ei kattu ja kui tekib mitu graafi, kuvatakse need üksteisest pisut eemal
+
+    \item Graafis on võimalik seadmeid enda suva järgi lohistada
+    \item Graafis kuvatakse tippudes seadme nimi (aadress), aga peale vajutades on võimalik näha ka ülejäänud infot (ip, mac, port)
+    \item \label{itm:req:saveChanges} Kasutaja graafile tehtud muudatused salvestatakse
+    kasutaja brauseriga lokaalselt (küpsised või localstorage) ja taastatakse järgmisel avamisel
+\end{enumerate}
+
+\subsection{Nõuete täitmine}
+\TODO{Kirjeldada rakendust ning näidata nõuete täitmist}
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 \newpage
 \section{Kasutatud tehnoloogiad}
+Antud peatükis tutvustatakse tehniliselt võrguprotokolle, teeke ning muid vahendeid, mida valminud
+rakendus kasutab.
 
-\subsection{SNMP}
-\TODO{Rakenduse nõuded}
+\TODO{Kas siin peaks git ka olema?}
+\TODO{Kas siin peaks python ka olema?}
+\TODO{HTML, JS, CSS}
+%\subsection{Python}
+%
+%Rakenduse tagasüsteem on kirjutatud programmeerimiskeeles Python.
+%Peamine põhjus oli, et autoril oli varasem kogemus Pythoniga juba olemas.
 
-\subsection{Python}
-\subsection{PySNMP}
+\subsection{CDP ja LLDP}
+CDP (\textit{Cisco Discovery Protocol}) ja LLDP (\textit{Link Layer Discovery Protocol}) on
+mõlemad võrguprotokollid ühendatud võrguseadmetele haldusinformatsiooni jagamiseks.
+LLDP ja CDP on funktsionaalsuse poolest küllaltki sarnased.
+Peamine erinevus kahe protokolli vahel on, et CDP on Cisco (võrguseadmete tootja)
+loodud ja hallatav omandprotokoll.~\cite{cdpInfo}
+LLDP seevastu on avatud ja seadmetootjate ülene protokoll, LLDP standardit haldab
+IEEE.~\cite{lldpInfo}
 
+\subsection{SNMP} \label{subsec:snmp}
+\TODO{See siin lõhnab kantseliidi järele - oluline enne, laialdaselt kasutatav; lihtsasti toimiv
+on mõttetus}
+SNMP (\textit{Simple network management protocol}) on laialdaselt kasutatav ja lihtsasti toimiv
+võrguhaldusprotokoll, mis kuulub OSI mudelis rakenduskihti. Protokoll lihtsustab ja
+ühtlustab võrguseadmetelt haldusinfo küsimist.~\cite[151]{sissejuhVorg}
+
+\TODO{faktikontroll ja viited}
+Hallatavad seadmed hoiavad haldusinfot MIB-i struktuuris, mis on hierarhiline andmebaas.
+Igal objektil on oma id (OID).
+Samade id-de abil käib ka seadmetelt andmete küsimine.\TODO{halb sõnastus - samade id-de}
+
+\TODO{Community string}
+
+\TODO{faktikontroll ja viited}
+SNMP-st on 3 põhilist versiooni: 1, 2 ja 3. \TODO{täpsustada 1 vs 2} Valminud rakendus kasutab
+versiooni 2. \TODO{täpsustada, kas 2 või 2c vm}. \TODO{põhjendada, miks 2}
+
+\TODO{faktikontroll ja viited}
+Valminud rakendus kasutab SNMP protokolli, et sisendiks saadud võrguseadmetelt CDP ja LLDP
+andmeid küsida. Täpsemalt kirjeldatakse seda peatükis~\ref{easySNMP}. \TODO{veenduda, et
+kirjeldab ka}
+
+\subsection{easySNMP} \label{easySNMP}
+Kommutaatoritelt üle SNMP protokolli andmete küsimiseks kasutab rakendus Pythoni teeki easySNMP\@.
+Töö algfaasis katsetati alternatiivina ka teeki PySNMP\footnote{\url{http://snmplabs.com/pysnmp}}.
+Valik tehti aga easySNMP kasuks, kuna PySNMP on kommutaatoritega suhtlemisel tuntavalt aeglasem.
+~\cite{easySNMPDocs}
+\TODO{Kas rääkida teegi kaladest? https://github.com/kamakazikamikaze/easysnmp/issues/69}
+
+\subsection{Cytoscape.js} \label{subsec:cyto}
+
+Järgmiseks oli vaja Javascripti teeki graafide brauseris esitamiseks.
+Andmeid visualiseerivaid (ja muuhulgas graafe toetavaid) teeke leidub arvukalt, ent autor kitsendas
+otsingu lihtsuse huvides vaid graafidele spetsialiseerunud teekidele.
+Samuti pidi teek olema avatud lähtekoodiga ning toetama graafi tippudele hüpikvihjete lisamist.
+
+Kasutusele võeti Cytoscape.js\footnote{\url{http://js.cytoscape.org/}},
+mis vastas kirjeldatud nõuetele.~\cite{cytoscapeIntro}
+Pärast esmaseid katsetusi demodega tõusis esile hea dokumentatsioon, mis tegi teegi
+kasutamise lihtsaks, lai valik erinevaid kujundusi ning graafide kuvamisel mõistlik
+ekraanipinna kasutamine.
+
+Kuigi teek vaikimisi hüpikvihjeid kuvada ei oska, on selleks loodud laiendeid.
+Hüpikvihjete kuvamiseks kasutusele teegid on kirjeldatud peatükis~\ref{libsUsedInUI}.
 
 \newpage
-\section{Title of Section 2} 
-\TODO{Short description of what this section is about}
+\section{Valminud rakenduse kirjeldus}
+Rakenduse võib funktsionaalsuse järgi jagada kaheks: tagasüsteem ja kasutajaliides.
+Tagasüsteemi ülesanne on küsida ja töödelda sisendiks saadud võrguseadmetelt info ühendatud
+seadmete kohta.
+Kasutajaliides koostab tagasüsteemi poolt saadud andmetest veebilehe kommutaatorite graafiga.
+Peatükis kirjeldatakse detailselt mõlema osa arhitektuuri.
 
+\subsection{Tagasüsteem}
+Tagasüsteem on kirjutatud programmeerimiskeeles Python.
+Välistest teekidest on kasutusel vaid easySNMP (\ref{easySNMP}).
+Tagasüsteemi lähtekood asub \texttt{src/} kaustas (va \texttt{src/web/}, mis on kasutajaliides).
 
-\subsection{Title of Subsection 1}
-
-Some text...
-
-\subsubsection{Title of Subsubsection 1}
-
-Some text...
-
-\subsubsection{Title of Subsubsection 2}
-
-Some text...
-
-
-
-\subsection{Title of Subsection 2} 
-
-Rule: If you divide the text into subsections (or subsubsections) then there has to be at least two of them, otherwise do not create any. 
-
-Tip: You can also use paragraphs, e.g.
-\paragraph{Type rules for integers.} Some text ...
-
-\paragraph{Type rules for rational numbers.} Some text here too...
-
-
-
-
-\subsection{How to use references} \label{sec:using_ref}
-
-\paragraph{Cross-references to figures, tables and other document elements.}
-LaTeX  internally numbers all kind of objects that have sequence numbers:
-\begin{itemize}
-\item chapters, sections, subsections;
-\item figures, tables, algorithms;
-\item equations, equation arrays.
-\end{itemize}
-To reference them automatically, you have to generate a label using \texttt{$\backslash$label\{some-name\}} just after the object that has the number inside. Usually, labels of different objects are split into different namespaces by adding dedicated prefix, such as \texttt{sec:}, \texttt{fig:}. To use the corresponding reference, you must use command \texttt{$\backslash$ref} or \texttt{$\backslash$eqref}. For instance, we can reference this subsection by calling Section~\ref{sec:using_ref}. Note that there should be a nonbreakable space \texttt{\~} between the name of the object and the reference so that they would not appear on different lines (does not work in Estonian).          
-
-
-
-\paragraph{Citations.}
-Usually, you also want to reference articles, webpages, tools or programs or books. For that you should use citations and references. The system is similar to the cross-referencing system in LaTeX. For each reference you must assign a unique label. Again, there are many naming schemes for labels. However, as you have a short document anything works. To reference to a particular source you must use \texttt{$\backslash$cite\{label\}} or \texttt{$\backslash$cite[page]\{label\}}. 
-
-References themselves can be part of a LaTeX source file. For that you need to define a bibliography section. However, this approach is really uncommon. It is much more easier to use BibTeX to synthesise the right reference form for you. For that you must use two commands in the LaTeX source
-\begin{itemize}
-\item $\backslash$bibliographystyle\{alpha\} or $\backslash$bibliographystyle\{plain\}
-\item $\backslash$bibliography\{file-name\}
-\end{itemize}
-The first command determines whether the references are numbered by letter-number combinations or by cryptic numbers. It is more common to use \texttt{alpha} style. The second command determines the file containing the bibliographic entries. The file should end with \texttt{bib} extension. Each reference there is in specific form. The simplest way to avoid all technicalities is to use graphical frontend  Jabref (\url{http://jabref.sourceforge.net/}) to manage references. Another alternative is to use DBLP database of references and copy BibTeX entries directly form there.   
-    
-   
-The following paragraph shows how references can be used. Game-based proving is a way to analyse security of a cryptographic protocol~\cite{GameB_1, GameB_2}. There are automatic provers, such as {CertiCrypt\-}~\cite{certicrypt} and ProVerif~\cite{proVerif}.
-
-
-
-\newpage
-\section{How to add figures and pictures to your thesis}
-
-
-Here are a few examples of how to add figures or pictures to your thesis (see Figures~\ref{fig:fnCompModel}, \ref{fig:game-based_proofs}, \ref{fig:proveit_screenshot}).
-
-Rule: All the figures, tables and extras in the thesis have to be referred to somewhere in the text.
-
-
-\begin{figure} [ht] %try to place the figure here (next option top of the page) 
-\begin{center}
-\includegraphics[width=0.8\textwidth]{computational_model_function}
-\caption{The title of the Figure.}
-\label{fig:fnCompModel}
-\end{center}
-\end{figure}
-
-
-
-\begin{figure} [!ht] %if [h] doesn't work, we can force with !
-\begin{center}
-\includegraphics[width=\textwidth]{game-based_proofs}
-\caption{Refer if the figure is not yours~\cite{kamm12}.}
-\label{fig:game-based_proofs}
-\end{center}
-\end{figure}
-
-
-\begin{figure} [p]
-\begin{center}
-\includegraphics[width=\textwidth]{proveit_screenshot}
-\caption{Screenshot of \proveit.}
-\label{fig:proveit_screenshot}
-\end{center}
-\end{figure}
-
-Tip: If you add a screenshot then labeling the parts might help make the text more understandable (panel C vs bottom left part), e.g.
-
-
-\begin{figure} [htbp]
-\begin{tabular}{c c}
-%
-\begin{minipage}{0.45\textwidth}
-\includegraphics[width=\textwidth]{LCA_2_solutions}
-\end{minipage}
-%
-&
-\begin{minipage}{0.55\textwidth}
-\centering
-\begin{tabular}{ l | l |}
-	Node & Decendants \\ \hline
-  1 & 2, 3, 4 \\ \hline
-  2 & 3, 4 \\ \hline
-  3 & \\ \hline
-  4 & \\ \hline
-  5 & 3, 4, 6, 7 \\ \hline
-  6 & 4 \\ \hline
-  7 & 3 \\  \hline
-  8 & 3, 4, 5, 6, 7\\ \hline
-  9 & 3, 4, 5, 6, 7\\ \hline
-\end{tabular}
-\end{minipage}
-\end{tabular}
-%
-\caption{Example how to put two figures parallel to each other.}
-\label{fig:LCA_2_solutions}
-\end{figure}
-
-
-Example: A screenshot of \proveit can be seen on Figure~\ref{fig:proveit_screenshot}. The user first enters the pseudocode of the initial game in panel B. \proveit also keeps track of all the previous games showing the progress on a graph seen in panel A.
-
-There are two figures side by side on Figure~\ref{fig:LCA_2_solutions}.
-
-
-
-\clearpage %if newpage doesn't work
-\section{Other Ways to Represent Data}
-
-\subsection{Tables}
-
-\begin{table}[h]
-\centering
-\caption{Statements in the \proveit language.}
-\begin{tabular}{| l | l |}
-	\hline
-	\bf{Statement} & \bf{Typeset Example} \\
-	\hline
-	assignment & $a := 5 + b$ \\
-	\hline
-	uniform choice & $m <- M$ \\
-	\hline
-	function signature & $f : K \times M -> L$\\
-	\hline
-\end{tabular}
-\label{tab:statements}
-\end{table}
-
-
-\subsection{Lists}
-
-Numbered list example:
-\begin{enumerate}
-	\item item one; 
-	\item item two;
-	\item item three.
-\end{enumerate} 
-
-\subsection{Math mode}
-Example:
-\begin{equation}
-a + b = c + d
-\end{equation}
-Aligning:
-\begin{align*}
-	a &= 5 \\
-	b + c &= a \\
-	a -2*3 &= 5/4
-\end{align*}
-Hint: Variables or equations in text are separated with \$ sign, e.g. $a$, $x - y$.
-
-\paragraph{Inference Rules}
-\[ 
-	\inference[addition]{x : T & y : T}{x + y : T} 
-\]
-Bigger example:
-\[
-\inference[assign]{c := a + b & 
-	\inference[addG]{a : \typeRat & 
-		\inference[var]{b : \typeInt & \typeInt \subseteq \typeRat}{b : \typeRat}
-		}{a + b : \typeRat}
-	}{c : \typeRat}
-\]
-
-
-\subsection{algorithm2e}
-
-\begin{algorithm} [!h]
-	\caption{typeChecking} \label{alg:typeChecking}
-	\KwIn{Abstract syntax tree}
-	\KwResult{Type checking result; In addition, type table \typeF{type\_G} for global variables, \typeF{game} for the main game and \typeF{fun} for each $fun \in F$}
-	\SetKwData{s}{s}
-	\BlankLine
-	
-	\While{something changed in last cycle}{
-		\lForEach{global statement \s} {
-			\parseStatement{\s, \typeF{type\_G}}\;
-		}
-		\ForEach{function $fun$} {
-		\lForEach{statement \s in $fun$} {
-			\parseStatement{\s, \typeF{fun}}\;
-		}
-		}
-		\lForEach{statement \s in game} {
-			\parseStatement{\s, \typeF{game}}\;
-		}
-	}
-	%\eIf{error messages were found}{\Return \False\;}{\Return \True\;}
-\end{algorithm}
-
-\subsection{Pseudocode}
+\subsubsection{Rakenduse seadistamine}
+Rakenduse sätted loeb programm failist \texttt{config.ini}.
+Rakenduse lähtekoodis on näidisfail \texttt{config.ini.sample}, mille rakenduse käivitaja
+saab kopeerida ja vastavalt soovidele muuta.
 
 \begin{figure} [htb]
-\begin{lstlisting}
-expression
-  : NUMBER
-  | VARIABLE
-  | '+' expression
-  | expression '+' expression
-  | expression '*' expression
-  | function_name '(' parameters ')'
-  | '(' expression ')'
+\begin{lstlisting}[language=Python]
+[Application Config]
+
+# Default community string is used when switch has no specific community string set
+defaultCommunityString = public
+
+# Switches to be looked up.
+switches = with-specific-community.example.com specificcommunity
+           with-default-community.example.com
+           another-with-default-community.example.com
+
+# Enable or disable application logging (true or false)
+debug = false
 \end{lstlisting}
-\caption{Grammar of arithmetic expressions.}
-\label{fig:parser_exp}
+\caption{Näidis sättefail config.ini.sample}
 \end{figure}
 
-\subsection{Frame Around Information}
+Kasutaja saab määrata kommutaatorid, millelt naabrite info küsitakse.
+Seejuures saab igale kommutaatorile vajadusel määrata eraldi kogukonnasõne (vt~\ref{subsec:snmp}
+ja samuti nõue~\ref{itm:req:diffcommunities}).
+Lisaks on võimalik seadistada rakenduse logimist silumise tasemele(täpsemalt vt~\ref{logging}).
 
-Tip: We can use minipage to create a frame around some important information.
-\begin{figure} [h]
-\frame{
-\begin{minipage}{\textwidth}
+Rakendus kasutab sätetefaili parsimiseks Pythoni moodulit
+configparser\footnote{\url{https://docs.python.org/3.6/library/configparser.html}} ja sellest
+lähtuvalt on sätetefail INI-struktuuriga.
+Sätetefaili puudumisel või kui sätete lugemine ebaõnnestub, kuvatakse kasutajale vastav veateade
+ja programm lõpetab töö.
+Sätete lugemise implementatsioon on failis \texttt{src/config\_helper.py}.
+
+\subsubsection{Rakenduse põhivoog}
+
+Kui sätetefailist on seadistatud kommutaatorid loetud, asutakse neilt andmeid küsima.
+Seda tehakse ükshaaval, üle kommutaatorite itereerides.
+Vastuseks saadud andmed hoiustatakse sisemiselt sõnastikus, seejuures jagatakse iga
+kommutaatori käest saadud andmed kolmeks:
+%kommutaatori enda andmed (graafis tipud),
+%kommutaatoriga ühendatud teiste kommutaatorite andmed (graafis servad) ja ülejäänud kommutaatoriga
+%ühendatud seadmete info.
 \begin{enumerate}
-	\item integer division ($\opDiv$) -- only usable between \typeInt types
-	\item remainder ($\%$) -- only usable between \typeInt types
+    \item kommutaatori enda andmed (graafis tipud)
+    \item kommutaatoriga ühendatud teiste kommutaatorite andmed (graafis servad)
+    \item ülejäänud kommutaatoriga ühendatud seadmete info.
 \end{enumerate}
-\end{minipage}
-}
-\caption{Arithmetic operations in \proveit revisited.}
-\label{fig:aritmOp_revisit}
-\end{figure}
+\TODO{Siin veel vaja mõelda, kuidas seda kirja panna}
+
+Iga saadud naabri korral kontrollitakse, kas see on seadistatud kommutaator (ehk graafis teine
+tipp).
+Kui jah, siis talletatakse andmed, mis on vajalikud graafi serva kuvamiseks (nt pesade nimed,
+ühenduse kiirus).
+Samas sel juhul ei kasutata naabri kohta saadud andmeid.
+Teisisõnu - eelistatakse kommutaatori andmeid, mida kommutaator ise enda kohta andis,
+mitte andmeid, mida temaga ühenduses olev kommutaator tema kohta andis.
+Kui naaber aga ei ole teine sisendiks saadud kommutaator (vaid kommutaatoriga ühendatud muu seade),
+siis on tema kohta saadud info meile oluline ja naabri info salvestatakse.
+\TODO{Kas teha lihtne pseudokood?}
+\TODO{LLDP ja CDP mõlemat kasutatakse, kumba eelistatakse mõlema töötamise korral?}
+\TODO{Mis andmeid küsitakse}
+\TODO{Mil viisil easySNMP-ga andmeid küsitakse}
+
+\subsubsection{Päritavad andmed} \label{dataAsked}
+Kommutaatorite käest küsitavad andmed võib jagada kaheks: info seadme enese kohta ja info
+kommutaatoriga ühenduses olevate seadmete (naabrite) kohta.
+Järgnevalt toome välja kõik andmed, mida kommutaatoritelt päritakse, sealhulgas ka SNMP
+identifikaatorid (OID-d, vt~\ref{subsec:snmp}), mida päringutes kasutati.
+\TODO{sisemiselt kasutatakse unikaalsuse identifikaatoriks sysName}
+\TODO{Tabel OID-dest ja kus neid andmeid kasutatakse?}
+\TODO{Iga OID kohta: oid, kas seadme kohta või naabri?, kus kasutajaliideses kuvatakse?}
+
+\subsubsection{Andmete faili salvestamine} \label{backendOutput}
+\TODO{Itereeritakse andmeid ja kirjutatakse faili, mis on ühtlasi .js fail}
+Põhjus, miks kasutatakse Javascripti faili (laiendiga \texttt{.js}) ja mitte näiteks JSON-formaati,
+on kirjeldatud
+peatükis~\ref{dataInput}.
+
+Andmete faili kirjutamise implementatsioon on failis \texttt{src/output\_helper.py}.
+
+\subsubsection{Veahaldus}
+Vigadele kõige altim on kommutaatoritelt andmete küsimine - juhul kui kommutaatoriga ei saada
+ühendust (vale seadistus, võrguprobleem vms).
+Veahalduse roll on sel juhul tagada, et programmi töö jätkuks teistelt kommutaatoritelt andmete
+küsimisega.
+Sel juhul logitakse kasutajale olemasolevate andmetega võimalikult informatiivne viga ja minnakse
+programmi vooga edasi.
+
+\subsubsection{Logimine} \label{logging}
+Logimiseks kasutatakse Pythoni moodulit
+logging\footnote{\url{https://docs.python.org/3.6/library/logging.html}}.
+Rakenduse sättefailis on võimalik määrata logimise taset (\texttt{debug},
+kui \texttt{debug = true} või \texttt{info}, kui \texttt{debug = false}).
+\texttt{Debug} tasemel logikirjed on mõeldud vaid arendamiseks ja vigade silumiseks.
+
+
+\subsection{Kasutajaliides}
+Kasutajaliides on staatiline veebileht.
+\TODO{Sissejuhatus kasutajaliidese kohta}
+Kasutajaliidese lähtekood asub \texttt{src/web/} kataloogis.
+
+\subsubsection{Välised teegid} \label{libsUsedInUI}
+Graafide kuvamiseks kasutatakse Javascripti teeki cytoscape.js (\ref{subsec:cyto}).
+Lisaks kasutatakse laiendit
+cytoscape-popper\footnote{\url{https://github.com/cytoscape/cytoscape.js-popper}}, mis lisab
+teegile Popper.js\footnote{\url{https://popper.js.org}} (teek muuhulgas hüpikvihjete kuvamiseks)
+toe.
+Lisaks võeti kasutusele Tippy.js\footnote{\url{https://atomiks.github.io/tippyjs/}},
+mis teeb hüpikvihjete loomise ja kohandamise Popper.js-iga lihtsamaks.
+
+Välised teegid asuvad kataloogis \texttt{src/web/lib/}.
+Kõik kasutatud välised failid on lähtekoodiga kaasas (ei laeta internetist).
+Põhjuseks turvalisus ja võimalus rakendust ilma võrguühenduseta kasutada.
+
+\subsubsection{Lokaalse faili laadimine brauseris}
+Lokaalsel veebilehel lokaalse faili Javascriptiga lugemine on keerulisem kui võiks arvata.
+Brauserid kaitsevad kasutajaid pahatahtliku koodi laadimise ja jooksutamise eest, aga samamoodi
+piiratakse ka pääsu kasutaja lokaalsetele failidele.
+
+Brauserid rakendavad reeglina doomenisisese ressursikasutuse (\textit{same-origin policy})
+printsiipi.
+See tähendab, et veebileht ei saa jooksutada koodi ning ei pääse ligi failidele, mis asuvad
+teistes domeenides.
+Et võimaldada ka doomenivälist ressursikaasutust on W3C loonud spetsifikatsiooni CORS
+(\textit{Cross-origin resource sharing}).
+~\cite{w3CORS}
+
+Antud spetsifikatsiooni implementeerivad brauserid ise ning sellele on erinevad arendajad
+lähenenud erinevalt~\cite{localWebSec}.
+Loodud programmi kontekstis tuli esile probleem, et kasutades \texttt{file://} URI-skeemi, on faili
+päritolu (\textit{origin}) definitsioon CORS-i spetsifikatsioonis
+lahtine~\cite[peatükk 4, punkt 4]{ietfOrigin}.
+See tähendab, et brauserid käituvad antud olukorras erinevalt ja ei ole garantiid, et igas
+brauseris tagasüsteemi poolt loodud faili lugemine õnnestub.
+
+\subsubsection{Tagasüsteemi loodud sisendi lugemine} \label{dataInput}
+Töö autor lootis algselt kommutaatorite andmed tagasüsteemilt kasutajaliidesele edastada
+JSON-formaadis, seejuures kasutada Pythoni ja Javascripti standardteeke.
+Katsetuste käigus tuli eelnevalt kirjeldatud erinev brauserite käitumine aga välja.
+Chromium (ja Google Chrome) ei lubanud \texttt{file://} URI-skeemiga lokaalset faili üldse laadida.
+Firefox lubaks faili laadida, aga (alates küljendusmootori Gecko versioonist 1.9) seab ette nõuded
+faili asukohale~\cite{ffCORS}.
+
+Kasutaja brauserite kohta eeldusi teha ei tahetud - programm peaks töötama sõltumata brauserist.
+Üks lahendus oleks veebirakenduse kuvamiseks kasutada lokaalset veebiserverit ja küsida andmefail
+üle \texttt{http://} URI-skeemi
+\footnote{\url{https://stackoverflow.com/questions/46258449/cors-error-requests-are-only-supported-for-protocol-schemes-http-etc}}
+\footnote{\url{https://stackoverflow.com/questions/20041656/xmlhttprequest-cannot-load-file-cross-origin-requests-are-only-supported-for-ht}}
+\footnote{\url{https://stackoverflow.com/questions/35335047/how-to-get-rid-of-cross-origin-request-block-in-chrome}}.
+See on aga töö raames loodava rakenduse kontekstis üleliigne keerukus ja probleemi lahenduseks ei
+sobinud.
+
+Selle asemel otsustati andmed tagasüsteemi poolt vormindada Javascripti koodifailiks.
+Fail defineerib ühe muutuja, milles on kommutaatorite andmed sõnastikus.
+Seejuures vormindatakse andmed sõnastikus nõnda, et selle saab otse cytoscape.js
+(vt~\ref{subsec:cyto}) teegile ette anda.
+See tähendab, et sõnastikus on elemendid \texttt{nodes} ja \texttt{edges}, vastavalt graafi tipud
+ja servad.
+Antud fail laetakse kasutajaliideses Javascripti lähtekoodina ja seejärel on kommutaatorite
+andmed kasutajaliideses olemas ja neid saab kasutajale kuvada.
+
+\subsubsection{Graafi kuvamine}
+\TODO{kasutatakse cytoscape'i, mis failid includetud}
+\TODO{cytoscape'i implementatsioon ja konf}
+\TODO{puudus graafi servade labe'itega - või see äkki puuduste alla?}
+\TODO{nõuded ja nende implementeerimine}
+
+\subsubsection{Kasutaja muudatuste salvestamine}
+Vastavalt nõudele~\ref{itm:req:saveChanges} pidi kasutajaliides salvestama kasutaja muudatused
+graafile (tippude asukohtade muudatused).
+Antud funktsionaalsust teek cytoscape.js otse ei paku, küll aga defineeritakse funktsioon
+\texttt{cy.json()}\footnote{\url{http://js.cytoscape.org/\#cy.json}}, mis võimaldab graafi paigutust
+JSON-formaadis importida ja eksportida.
+
+Implementeeriti graafi asetuse salvestamine, kui kasutaja veebilehelt lahkub või seda värskendab.
+JSON andmed salvestatakse sõnena brauseri lokaalsesse andmesalvestisse
+(localStorage\footnote{\url{https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage}}).
+Kui kasutaja veebilehe avab, laetakse ja taastatakse graafi paigutus andmesalvestist.
+Kui seda varasemalt salvestatud ei ole (esimene külastus), siis laetakse graaf andmefailist.
+
+Samuti lisati veebilehele nupp graafi paigutuse taastamiseks - graafi andmefailist uuesti
+laadimiseks.
+
+\TODO{räsi arvutamine ja teate kuvamine, kui andmefail on taustal muutunud, kui see
+implementeeritud saab}
+
+
+
+
+
+\newpage
+\section{Edasised tegevused}
+\TODO{Sissejuhatav tekst}
+
+
+
+
+
+
+
+
+
+
+
+
+%
+%
+%\newpage
+%\subsection{Title of Subsection 2}
+%
+%Rule: If you divide the text into subsections (or subsubsections) then there has to be at least two of them, otherwise do not create any.
+%
+%Tip: You can also use paragraphs, e.g.
+%\paragraph{Type rules for integers.} Some text ...
+%
+%\paragraph{Type rules for rational numbers.} Some text here too...
+%
+%
+%
+%
+%\subsection{How to use references} \label{sec:using_ref}
+%
+%\paragraph{Cross-references to figures, tables and other document elements.}
+%LaTeX  internally numbers all kind of objects that have sequence numbers:
+%\begin{itemize}
+%\item chapters, sections, subsections;
+%\item figures, tables, algorithms;
+%\item equations, equation arrays.
+%\end{itemize}
+%To reference them automatically, you have to generate a label using \texttt{$\backslash$label\{some-name\}} just after the object that has the number inside. Usually, labels of different objects are split into different namespaces by adding dedicated prefix, such as \texttt{sec:}, \texttt{fig:}. To use the corresponding reference, you must use command \texttt{$\backslash$ref} or \texttt{$\backslash$eqref}. For instance, we can reference this subsection by calling Section~\ref{sec:using_ref}. Note that there should be a nonbreakable space \texttt{\~} between the name of the object and the reference so that they would not appear on different lines (does not work in Estonian).
+%
+%
+%
+%\paragraph{Citations.}
+%Usually, you also want to reference articles, webpages, tools or programs or books. For that you should use citations and references. The system is similar to the cross-referencing system in LaTeX. For each reference you must assign a unique label. Again, there are many naming schemes for labels. However, as you have a short document anything works. To reference to a particular source you must use \texttt{$\backslash$cite\{label\}} or \texttt{$\backslash$cite[page]\{label\}}.
+%
+%References themselves can be part of a LaTeX source file. For that you need to define a bibliography section. However, this approach is really uncommon. It is much more easier to use BibTeX to synthesise the right reference form for you. For that you must use two commands in the LaTeX source
+%\begin{itemize}
+%\item $\backslash$bibliographystyle\{alpha\} or $\backslash$bibliographystyle\{plain\}
+%\item $\backslash$bibliography\{file-name\}
+%\end{itemize}
+%The first command determines whether the references are numbered by letter-number combinations or by cryptic numbers. It is more common to use \texttt{alpha} style. The second command determines the file containing the bibliographic entries. The file should end with \texttt{bib} extension. Each reference there is in specific form. The simplest way to avoid all technicalities is to use graphical frontend  Jabref (\url{http://jabref.sourceforge.net/}) to manage references. Another alternative is to use DBLP database of references and copy BibTeX entries directly form there.
+%
+%
+%The following paragraph shows how references can be used. Game-based proving is a way to analyse security of a cryptographic protocol~\cite{GameB_1, GameB_2}. There are automatic provers, such as {CertiCrypt\-}~\cite{certicrypt} and ProVerif~\cite{proVerif}.
+%
+%
+%
+%\newpage
+%\section{How to add figures and pictures to your thesis}
+%
+%
+%Here are a few examples of how to add figures or pictures to your thesis (see Figures~\ref{fig:fnCompModel}, \ref{fig:game-based_proofs}, \ref{fig:proveit_screenshot}).
+%
+%Rule: All the figures, tables and extras in the thesis have to be referred to somewhere in the text.
+%
+%
+%\begin{figure} [ht] %try to place the figure here (next option top of the page)
+%\begin{center}
+%\includegraphics[width=0.8\textwidth]{computational_model_function}
+%\caption{The title of the Figure.}
+%\label{fig:fnCompModel}
+%\end{center}
+%\end{figure}
+%
+%
+%
+%\begin{figure} [!ht] %if [h] doesn't work, we can force with !
+%\begin{center}
+%\includegraphics[width=\textwidth]{game-based_proofs}
+%\caption{Refer if the figure is not yours~\cite{kamm12}.}
+%\label{fig:game-based_proofs}
+%\end{center}
+%\end{figure}
+%
+%
+%\begin{figure} [p]
+%\begin{center}
+%\includegraphics[width=\textwidth]{proveit_screenshot}
+%\caption{Screenshot of \proveit.}
+%\label{fig:proveit_screenshot}
+%\end{center}
+%\end{figure}
+%
+%Tip: If you add a screenshot then labeling the parts might help make the text more understandable (panel C vs bottom left part), e.g.
+%
+%
+%\begin{figure} [htbp]
+%\begin{tabular}{c c}
+%%
+%\begin{minipage}{0.45\textwidth}
+%\includegraphics[width=\textwidth]{LCA_2_solutions}
+%\end{minipage}
+%%
+%&
+%\begin{minipage}{0.55\textwidth}
+%\centering
+%\begin{tabular}{ l | l |}
+%	Node & Decendants \\ \hline
+%  1 & 2, 3, 4 \\ \hline
+%  2 & 3, 4 \\ \hline
+%  3 & \\ \hline
+%  4 & \\ \hline
+%  5 & 3, 4, 6, 7 \\ \hline
+%  6 & 4 \\ \hline
+%  7 & 3 \\  \hline
+%  8 & 3, 4, 5, 6, 7\\ \hline
+%  9 & 3, 4, 5, 6, 7\\ \hline
+%\end{tabular}
+%\end{minipage}
+%\end{tabular}
+%%
+%\caption{Example how to put two figures parallel to each other.}
+%\label{fig:LCA_2_solutions}
+%\end{figure}
+%
+%
+%Example: A screenshot of \proveit can be seen on Figure~\ref{fig:proveit_screenshot}. The user first enters the pseudocode of the initial game in panel B. \proveit also keeps track of all the previous games showing the progress on a graph seen in panel A.
+%
+%There are two figures side by side on Figure~\ref{fig:LCA_2_solutions}.
+%
+%
+%
+%\clearpage %if newpage doesn't work
+%\section{Other Ways to Represent Data}
+%
+%\subsection{Tables}
+%
+%\begin{table}[h]
+%\centering
+%\caption{Statements in the \proveit language.}
+%\begin{tabular}{| l | l |}
+%	\hline
+%	\bf{Statement} & \bf{Typeset Example} \\
+%	\hline
+%	assignment & $a := 5 + b$ \\
+%	\hline
+%	uniform choice & $m <- M$ \\
+%	\hline
+%	function signature & $f : K \times M -> L$\\
+%	\hline
+%\end{tabular}
+%\label{tab:statements}
+%\end{table}
+%
+%
+%\subsection{Lists}
+%
+%Numbered list example:
+%\begin{enumerate}
+%	\item item one;
+%	\item item two;
+%	\item item three.
+%\end{enumerate}
+%
+%\subsection{Math mode}
+%Example:
+%\begin{equation}
+%a + b = c + d
+%\end{equation}
+%Aligning:
+%\begin{align*}
+%	a &= 5 \\
+%	b + c &= a \\
+%	a -2*3 &= 5/4
+%\end{align*}
+%Hint: Variables or equations in text are separated with \$ sign, e.g. $a$, $x - y$.
+%
+%\paragraph{Inference Rules}
+%\[
+%	\inference[addition]{x : T & y : T}{x + y : T}
+%\]
+%Bigger example:
+%\[
+%\inference[assign]{c := a + b &
+%	\inference[addG]{a : \typeRat &
+%		\inference[var]{b : \typeInt & \typeInt \subseteq \typeRat}{b : \typeRat}
+%		}{a + b : \typeRat}
+%	}{c : \typeRat}
+%\]
+%
+%
+%\subsection{algorithm2e}
+%
+%\begin{algorithm} [!h]
+%	\caption{typeChecking} \label{alg:typeChecking}
+%	\KwIn{Abstract syntax tree}
+%	\KwResult{Type checking result; In addition, type table \typeF{type\_G} for global variables, \typeF{game} for the main game and \typeF{fun} for each $fun \in F$}
+%	\SetKwData{s}{s}
+%	\BlankLine
+%
+%	\While{something changed in last cycle}{
+%		\lForEach{global statement \s} {
+%			\parseStatement{\s, \typeF{type\_G}}\;
+%		}
+%		\ForEach{function $fun$} {
+%		\lForEach{statement \s in $fun$} {
+%			\parseStatement{\s, \typeF{fun}}\;
+%		}
+%		}
+%		\lForEach{statement \s in game} {
+%			\parseStatement{\s, \typeF{game}}\;
+%		}
+%	}
+%	%\eIf{error messages were found}{\Return \False\;}{\Return \True\;}
+%\end{algorithm}
+%
+%\subsection{Pseudocode}
+%
+%\begin{figure} [htb]
+%\begin{lstlisting}
+%expression
+%  : NUMBER
+%  | VARIABLE
+%  | '+' expression
+%  | expression '+' expression
+%  | expression '*' expression
+%  | function_name '(' parameters ')'
+%  | '(' expression ')'
+%\end{lstlisting}
+%\caption{Grammar of arithmetic expressions.}
+%\label{fig:parser_exp}
+%\end{figure}
+%
+%\subsection{Frame Around Information}
+%
+%Tip: We can use minipage to create a frame around some important information.
+%\begin{figure} [h]
+%\frame{
+%\begin{minipage}{\textwidth}
+%\begin{enumerate}
+%	\item integer division ($\opDiv$) -- only usable between \typeInt types
+%	\item remainder ($\%$) -- only usable between \typeInt types
+%\end{enumerate}
+%\end{minipage}
+%}
+%\caption{Arithmetic operations in \proveit revisited.}
+%\label{fig:aritmOp_revisit}
+%\end{figure}
 
 
 
 \clearpage
 \section{Conclusion}
 
-\TODO{what did you do?} 
+\TODO{what did you do?}
 \TODO{What are the results?}
 \TODO{future work?}
 
@@ -673,8 +1032,8 @@ Tip: We can use minipage to create a frame around some important information.
 % Use alternative local LaTeX bibliography
 \begin{comment}
 \begin{thebibliography}{9}
-\bibitem{proVerif} 
-  Bruno Blanchet. 
+\bibitem{proVerif}
+  Bruno Blanchet.
   Proverif: Cryptographic protocol verifier in the formal model.
   \url{http://www.proverif.ens.fr/}.
   (checked 15.05.2012)
@@ -732,7 +1091,7 @@ supervised by Meelis Roos
 \item
 I am aware of the fact that the author retains these rights.
 \item
-I certify that granting the non-exclusive licence does not infringe the intellectual property rights or rights arising from the Personal Data Protection Act. 
+I certify that granting the non-exclusive licence does not infringe the intellectual property rights or rights arising from the Personal Data Protection Act.
 \end{enumerate}
 
 \noindent
@@ -770,7 +1129,7 @@ reprodutseerimiseks säilitamise ja üldsusele kättesaadavaks tegemise eesmärg
 \item
 olen teadlik, et punktis 1 nimetatud õigused jäävad alles ka autorile.
 \item
-kinnitan, et lihtlitsentsi andmisega ei rikuta teiste isikute intellektuaalomandi ega isikuandmete kaitse seadusest tulenevaid õigusi. 
+kinnitan, et lihtlitsentsi andmisega ei rikuta teiste isikute intellektuaalomandi ega isikuandmete kaitse seadusest tulenevaid õigusi.
 \end{enumerate}
 
 \noindent
