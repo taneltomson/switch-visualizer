@@ -227,7 +227,7 @@ Informaatika õppekava\\%[2mm]
 \vspace{4mm}
 
 \TODO{Töö pealkiri täpsustada}
-\huge Visualizing network switches
+\huge Võrgukommutaatorite visualiseerimine
 
 %\vspace*{\stretch{7}}
 \vspace{20mm}
@@ -380,122 +380,135 @@ the paper is significantly enhanced by their inclusion.}
 \newpage
 \section{Sissejuhatus}
 
-\TODO{What is it in simple terms (title)?}
-\TODO{Why should anyone care?}
-\TODO{What was my contribution?}
+Võrgukommutaator (inglise keeles \textit{switch}, edaspidi ka lihtsalt kommutaator) on
+võrguseade, mis ühendab seadmeid arvutivõrku.
+Näiteks kontorites, kus on reeglina hulgaliselt võrguseadmeid (arvutid, printerid jne), kasutatakse
+kommutaatoreid, et suur arv seadmeid saaksid arvutivõrguga ühenduda.
+
+Võrgukommutaatoritest võib mõelda kui sorteerimisekeskustest postiteenuses.
+Igal sorteerimiskeskusesse jõudval kirjal on sihtkoht, selleks on ümbrikul addressaat ja aadress.
+Sorteerimiskeskuses otsustatakse, kuhu iga kiri edasi tuleb saata.
+Sama ülesanne on ka võrgukommutaatoril - otsustada, millisele ühendatud võrguseadmele iga pakett
+(kiri) edasi saata.
+
+Kommutaatoreid - mida reeglina haldavad süsteemiadministraatorid - võib arvutivõrgus olla mitu.
+On protokolle, mille abil saab võrgukommutaatoritelt haldusinfot küsida.
+Kommutaatorilt infot küsides on tihti vastuseks saadud andmete hulk suur ja vajab lisatöötlust.
+Ülevaate saamine, kuidas kommutaatorid üksteisega ühendatud on, võib muutuda tülikaks ja
+aeganõudvaks.
+Töö autor kirjutas programmi, mis abistab võrgukommutaatorite haldamist, visualiseerides
+kommutaatorite paiknemist üksteise suhtes.
+Fookus on just kommutaatorite endi paiknemise visualiseerimisel, jättes lisainformatsiooni (muud
+ühendatud seadmed) tagaplaanile.
+
+Järnevalt on toodud töö struktuur.
+Peatükis "\nameref{reqs}", kirjeldatakse rakenduse jooksutamiseks vajalikud tingimused
+ning enne rakenduse arendamist paika pandud nõuded.
+Peatükis "\nameref{similar}" tuuakse ülevaade sarnast funktsionaalsust pakkuvatest
+rakendustest.
+"\nameref{usedTech}" kirjeldab tehnoloogiaid, teeke ja rakendusi, mida programm kasutab või mida
+kasutati arendusprotsessis.
+Peatükis "\nameref{description}" tehakse detailne ja tehniline ülevaade rakenduse arhitektuurist.
+Samuti põhjendatakse tehtud otsuseid ning näidatakse rakenduse nõuete täitmist.
 \TODO{What you are doing in each section (a sentence or two per section)}
 
-\TODO{Mingi sisssejuhatus võrgutehnoloogiasse; võrgukommutaatorite selgitus}
-
-Tip: if it's hard for you to start writing, then try to split it to smaller parts, e.g. if the title is ``Type Inference for a Cryptographic Protocol Prover Tool'' then the ``What is it'' can be divided into ``what is type inference'', ``what is cryptographic protocol'' and ``what is the prover tool''. These three can also be split to smaller parts etc.
-
-
-
-
-
-
-
-
 
 
 \newpage
-\section{Sarnased lahendused}
-
-\TODO{Sissejuhatav tekst}
-Käesolevas peatüki eesmärk on tutvustada ja anda ülevaade sarnastest lahendustest, tuues välja nende tugevused ja
-puudused.
-
-\TODO{Loetelu neist rakendustest}
-
-\TODO{Netdisco}
-
-\TODO{netcrawl}
-https://github.com/ytti/netcrawl
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-\newpage
-\section{Rakenduse kirjeldus}
+\section{Rakenduse nõuded} \label{reqs}
 Enne rakenduse programmeerimist fikseeriti rakenduse nõuded.
 Järgnev peatükk kirjeldab eeldused rakenduse käivitamiseks ning selle nõuded.
 
 \TODO{Riistvara ja tarkvara jm nõuded}
 
 \subsection{Kasutamise eeldused}
-\TODO{Täpsustada, mis andmeid SNMP peab jagama}
-\TODO{CDP kas mõistetesse või lehekülje alla}
 Rakenduse kasutamiseks on tehtud eeldus, et kasutajal on kontroll kaardistatavate võrgukommutaatorite üle.
 Võrgukommutaatorid peavad olema programmi jaoks kättesaadavad ja vajalikku informatsiooni edastama.
-See tähendab, et võrgukommutaatoritel peab töötama SNMP teenus ja see peab olema seadistatud jagama CDP andmeid.
+See tähendab, et võrgukommutaatoritel peab töötama SNMP teenus ja see peab olema seadistatud jagama
+CDP või LLDP andmeid.
 
 \subsection{Rakenduse nõuded}
-\TODO{Eraldada funktsionaalsed ja mittefunktsionaalsed?}
-\TODO{Nimekiri üle käia}
 \begin{enumerate}
-    \item Rakenduse käivitamine toimub käsurealt, vajalik python (koos vähemalt ühe SNMP teegiga) ja SNMP
-    \item Rakenduse sisendiks on ühe või mitme võrgukommutaatori aadress ja seadmetes seadistatud SNMP kommuuni nimi
-    \item ? Autodiscovery koos piiridega - võimalus anda ette võrgu piirid, kust otsida
+    \item Rakenduse käivitamine toimub käsurealt, vajalik python (koos vähemalt ühe SNMP teegiga)
+    ja SNMP
+    \item Rakenduse sisendiks on ühe või mitme võrgukommutaatori aadress ja seadmetes seadistatud
+    SNMP kommuuni nimi
     \item \label{itm:req:diffcommunities} Kui antakse ette mitu seadet, on võimalus määrata
     erinevatele seadmetele erinevad SNMP kommuunide nimed
 
     \item Rakendus küsib igalt sisendiks saadud seadmelt LLDP/CDP andmed (nimi, ip, mac; ühenduste füüsiline port, nimi, ip, mac)
-    \item Kui seadmega on ühendatud veel kommutaatoreid, küsitakse ka neilt andmed
     \item Rakendus töötleb ja vormindab saadud andmed
     \item Tekkinud vead kuvatakse kasutajale mõistlikult (mis juhtus, mida teha)
 
-    \item Rakendus loob antud andmete põhjal staatilise veebilehe (.html), kus kuvatakse graaf võrgukommutaatorite kohta
+    \item Rakendus loob antud andmete põhjal staatilise veebilehe (.html), kus kuvatakse
+    graaf võrgukommutaatorite kohta
     \item Staatilise veebilehe vaatamiseks pole vaja internetiühendust (CSS ja JS lokaalsed)
-    \item Graafi tipud on võrgukommutaatorid
-    \item ? Graafi väiksemad (vähem silmapaistvavad) tipud on võrgukommutaatoritesse ühendatud seadmed (mis pole kommutaatorid)
-    \item ? Või siis vaikimisi peidus ja peab lahti klikkima
-    \item Graafi servad tippude vahel on võrgukommutaatorite ühendused, erinevad ühenduste kiirused on tähistatud erinevalt
-    \item Graafis on vaikimisi paigutus mõistlik, see tähendab, et tipud ei kattu ja kui tekib mitu graafi, kuvatakse need üksteisest pisut eemal
-
-    \item Graafis on võimalik seadmeid enda suva järgi lohistada
-    \item Graafis kuvatakse tippudes seadme nimi (aadress), aga peale vajutades on võimalik näha ka ülejäänud infot (ip, mac, port)
+    \item \label{itm:req:nodesSwitches} Graafi tipud on võrgukommutaatorid
+    \item \label{itm:req:edgesSwitchConnections} Graafi servad tippude vahel on võrgukommutaatorite
+    ühendused, erinevad ühenduste kiirused on tähistatud erinevalt
+    \item \label{itm:req:graphLayout}Graafis on vaikimisi paigutus mõistlik, see tähendab, et tipud
+    ei kattu ja kui tekib mitu graafi, kuvatakse need üksteisest pisut eemal
+    \item \label{itm:req:dragSwitches} Graafis on võimalik seadmeid enda suva järgi lohistada
+    \item \label{itm:req:popouts} Graafis kuvatakse tippudes seadme nimi (aadress), tipule peale
+    vajutades on võimalik näha lisainfot seadme kohta
+    \item \label{itm:req:popoutsOtherDevices}Tipule peale vajutades on võimalik näha nimekirja
+    kommutaatoriga ühendatud teistest seadmetest
     \item \label{itm:req:saveChanges} Kasutaja graafile tehtud muudatused salvestatakse
     kasutaja brauseriga lokaalselt (küpsised või localstorage) ja taastatakse järgmisel avamisel
 \end{enumerate}
 
-\subsection{Nõuete täitmine}
-\TODO{Kirjeldada rakendust ning näidata nõuete täitmist}
 
 
+\newpage
+\section{Sarnased lahendused} \label{similar}
 
+Käesolevas peatüki eesmärk on tutvustada ja anda ülevaade sarnastest lahendustest,
+tuues välja nende tugevused ja puudused.
 
+\subsection{Netcrawl}
+Netcrawl on lihtne programm, mille sisendiks on ühe võrguseadme aadress ja SNMP kogukonnasõne.
+Rakendus küsib seejärel seadmelt naabrite info ja kordab tegevust naabrite puhul.
+Väljundfail on DOT-keeles\footnote{\url{https://graphviz.gitlab.io/_pages/doc/info/lang.html}},
+mida kasutab visualiseerimiseks Graphviz\footnote{url{https://www.graphviz.org/}} - graafide
+visualiseerimise tarkvara.
+Tulemuseks on pildifail graafiga, kus on leitud võrgukommutaatorid ja nende naabrid.
+~\cite{netcrawl}
 
+Netcrawl on üsna sarnane töö käigus loodava rakendusega.
+Rakenduse kasutamine on lihtne ja mõne üksiku mööndusega rahuldab programm meie nõuded.
+Küll aga on mõned olulised puudused.
+Suurim erinevus on programmi väljundi formaat - Netcrawli kasutamisel tekib pildifail.
+Nõue~\ref{itm:req:dragSwitches} täpsustab aga võimaluse kasutajal graafi tippe interaktiivselt
+ümber paigutada.
+Samuti paneb programm kõik leitud seadmed graafi (sh kommutaatoriga ühendatud teised seadmed) -
+see tähendab, et kui seadmeid on palju, muutub graaf segaseks.
+Loodud programmis tehti otsus, et kommutaatoritega ühendatud seadmeid graafis ei kuvata, vaid need
+kuvatakse graafi tippudele (kommutaatoritele) vajutades
+hüpikvihjetega (nõue~\ref{itm:req:popoutsOtherDevices}).
+Lisaks ei saa Netcrawliga anda erinevatele kommutaatoritele erinevaid
+kogukonnasõnesid (nõue~\ref{itm:req:diffcommunities}).
 
+\subsection{Netdisco}
+\TODO{Netdisco ülevaade}
 
-
-
-
-
+\subsection{Foo}
+\TODO{kolmas sarnane lahendus?}
 
 
 
 \newpage
-\section{Kasutatud tehnoloogiad}
+\section{Kasutatud tehnoloogiad} \label{usedTech}
 Antud peatükis tutvustatakse tehniliselt võrguprotokolle, teeke ning muid vahendeid, mida valminud
 rakendus kasutab.
 
-\TODO{Kas siin peaks git ka olema?}
-\TODO{Kas siin peaks python ka olema?}
-\TODO{HTML, JS, CSS}
-%\subsection{Python}
-%
-%Rakenduse tagasüsteem on kirjutatud programmeerimiskeeles Python.
-%Peamine põhjus oli, et autoril oli varasem kogemus Pythoniga juba olemas.
+\subsection{Keeled}
+Rakenduse tagasüsteem on kirjutatud programmeerimiskeeles Python, kasutati versiooni 3.
+Peamine põhjus oli, et autoril oli varasem kogemus Pythoniga juba olemas.
+Samuti kontrolliti enne valiku tegemist, et leiduks sobiv SNMP teek, mis on rakenduse loomiseks
+vajalik.
+
+Kasutajaliides on loodud kasutades HTML-i ja CSS-i.
+Lisaks on graafi kuvamiseks kasutatud programmeerimiskeelt Javascript.
 
 \subsection{CDP ja LLDP}
 CDP (\textit{Cisco Discovery Protocol}) ja LLDP (\textit{Link Layer Discovery Protocol}) on
@@ -507,34 +520,33 @@ LLDP seevastu on avatud ja seadmetootjate ülene protokoll, LLDP standardit hald
 IEEE.~\cite{lldpInfo}
 
 \subsection{SNMP} \label{subsec:snmp}
-\TODO{See siin lõhnab kantseliidi järele - oluline enne, laialdaselt kasutatav; lihtsasti toimiv
-on mõttetus}
-SNMP (\textit{Simple network management protocol}) on laialdaselt kasutatav ja lihtsasti toimiv
+SNMP (\textit{Simple network management protocol}) on laialdaselt kasutatav
 võrguhaldusprotokoll, mis kuulub OSI mudelis rakenduskihti. Protokoll lihtsustab ja
 ühtlustab võrguseadmetelt haldusinfo küsimist.~\cite[151]{sissejuhVorg}
 
-\TODO{faktikontroll ja viited}
 Hallatavad seadmed hoiavad haldusinfot MIB-i struktuuris, mis on hierarhiline andmebaas.
-Igal objektil on oma id (OID).
-Samade id-de abil käib ka seadmetelt andmete küsimine.\TODO{halb sõnastus - samade id-de}
+Igal objektil on oma unikaalne identifikaator (OID).~\cite[152]{sissejuhVorg}
+Valminud rakendus kasutab konkreetseid OID-sid, et kommutaatoritelt vajalikke andmeid küsida.
 
-\TODO{Community string}
+SNMP protokoll defineerib päringute päises ka parameetri kogukonnasõne (\textit{community string}).
+Kogukonnasõne võimaldab teha päringutele triviaalset autentimist (nt lubada andmete pärimist
+vaid kindlate kogukonnasõnedega).~\cite[154-155]{sissejuhVorg}
 
-\TODO{faktikontroll ja viited}
-SNMP-st on 3 põhilist versiooni: 1, 2 ja 3. \TODO{täpsustada 1 vs 2} Valminud rakendus kasutab
-versiooni 2. \TODO{täpsustada, kas 2 või 2c vm}. \TODO{põhjendada, miks 2}
+SNMP-st on 3 põhilist versiooni: 1, 2 ja 3.
+Valminud rakendus kasutab versiooni 2 (täpsemalt 2c).
 
-\TODO{faktikontroll ja viited}
 Valminud rakendus kasutab SNMP protokolli, et sisendiks saadud võrguseadmetelt CDP ja LLDP
-andmeid küsida. Täpsemalt kirjeldatakse seda peatükis~\ref{easySNMP}. \TODO{veenduda, et
-kirjeldab ka}
+andmeid küsida.
 
 \subsection{easySNMP} \label{easySNMP}
 Kommutaatoritelt üle SNMP protokolli andmete küsimiseks kasutab rakendus Pythoni teeki easySNMP\@.
 Töö algfaasis katsetati alternatiivina ka teeki PySNMP\footnote{\url{http://snmplabs.com/pysnmp}}.
 Valik tehti aga easySNMP kasuks, kuna PySNMP on kommutaatoritega suhtlemisel tuntavalt aeglasem.
 ~\cite{easySNMPDocs}
-\TODO{Kas rääkida teegi kaladest? https://github.com/kamakazikamikaze/easysnmp/issues/69}
+
+Seadmetelt andmete küsimiseks kasutatakse session.walk()
+\footnote{\url{https://easysnmp.readthedocs.io/en/latest/session\_api.html}} funktsiooni, mis
+kasutab SNMP GetNextRequest operatsiooni.
 
 \subsection{Cytoscape.js} \label{subsec:cyto}
 
@@ -550,10 +562,10 @@ kasutamise lihtsaks, lai valik erinevaid kujundusi ning graafide kuvamisel mõis
 ekraanipinna kasutamine.
 
 Kuigi teek vaikimisi hüpikvihjeid kuvada ei oska, on selleks loodud laiendeid.
-Hüpikvihjete kuvamiseks kasutusele teegid on kirjeldatud peatükis~\ref{libsUsedInUI}.
+Hüpikvihjete kuvamiseks kasutusele võetud teegid on kirjeldatud peatükis~\ref{libsUsedInUI}.
 
 \newpage
-\section{Valminud rakenduse kirjeldus}
+\section{Valminud rakenduse kirjeldus} \label{description}
 Rakenduse võib funktsionaalsuse järgi jagada kaheks: tagasüsteem ja kasutajaliides.
 Tagasüsteemi ülesanne on küsida ja töödelda sisendiks saadud võrguseadmetelt info ühendatud
 seadmete kohta.
@@ -606,16 +618,11 @@ Kui sätetefailist on seadistatud kommutaatorid loetud, asutakse neilt andmeid k
 Seda tehakse ükshaaval, üle kommutaatorite itereerides.
 Vastuseks saadud andmed hoiustatakse sisemiselt sõnastikus, seejuures jagatakse iga
 kommutaatori käest saadud andmed kolmeks:
-%kommutaatori enda andmed (graafis tipud),
-%kommutaatoriga ühendatud teiste kommutaatorite andmed (graafis servad) ja ülejäänud kommutaatoriga
-%ühendatud seadmete info.
 \begin{enumerate}
     \item kommutaatori enda andmed (graafis tipud)
     \item kommutaatoriga ühendatud teiste kommutaatorite andmed (graafis servad)
-    \item ülejäänud kommutaatoriga ühendatud seadmete info.
+    \item ülejäänud kommutaatoriga ühendatud seadmete info (graafi tippude hüpikvihjetes)
 \end{enumerate}
-\TODO{Siin veel vaja mõelda, kuidas seda kirja panna}
-
 Iga saadud naabri korral kontrollitakse, kas see on seadistatud kommutaator (ehk graafis teine
 tipp).
 Kui jah, siis talletatakse andmed, mis on vajalikud graafi serva kuvamiseks (nt pesade nimed,
@@ -625,26 +632,28 @@ Teisisõnu - eelistatakse kommutaatori andmeid, mida kommutaator ise enda kohta 
 mitte andmeid, mida temaga ühenduses olev kommutaator tema kohta andis.
 Kui naaber aga ei ole teine sisendiks saadud kommutaator (vaid kommutaatoriga ühendatud muu seade),
 siis on tema kohta saadud info meile oluline ja naabri info salvestatakse.
-\TODO{Kas teha lihtne pseudokood?}
-\TODO{LLDP ja CDP mõlemat kasutatakse, kumba eelistatakse mõlema töötamise korral?}
-\TODO{Mis andmeid küsitakse}
-\TODO{Mil viisil easySNMP-ga andmeid küsitakse}
+
+Oluline on, et rakendus kasutab mõlemat protokolli: CDP ja LLDP\@.
+Kui kommutaator kasutab vaid üht, kasutatakse seda.
+Kui kommutaator toetab mõlemat, siis lõpuks kuvatakse LLDP andmeid (küsitakse mõlemad,
+salvestatakse LLDP).
 
 \subsubsection{Päritavad andmed} \label{dataAsked}
 Kommutaatorite käest küsitavad andmed võib jagada kaheks: info seadme enese kohta ja info
 kommutaatoriga ühenduses olevate seadmete (naabrite) kohta.
 Järgnevalt toome välja kõik andmed, mida kommutaatoritelt päritakse, sealhulgas ka SNMP
 identifikaatorid (OID-d, vt~\ref{subsec:snmp}), mida päringutes kasutati.
-\TODO{sisemiselt kasutatakse unikaalsuse identifikaatoriks sysName}
 \TODO{Tabel OID-dest ja kus neid andmeid kasutatakse?}
 \TODO{Iga OID kohta: oid, kas seadme kohta või naabri?, kus kasutajaliideses kuvatakse?}
+\TODO{sysName kasutatakse id-na -- kas tahan rääkida sellest, et miks? indeksid erinevate mib-de
+vahel erinevad}
 
 \subsubsection{Andmete faili salvestamine} \label{backendOutput}
-\TODO{Itereeritakse andmeid ja kirjutatakse faili, mis on ühtlasi .js fail}
+Et andmed jõuaksid tagasüsteemilt kasutajaliidesesse, kirjutatakse need Javascripti lähtekoodi
+faili.
 Põhjus, miks kasutatakse Javascripti faili (laiendiga \texttt{.js}) ja mitte näiteks JSON-formaati,
-on kirjeldatud
-peatükis~\ref{dataInput}.
-
+on kirjeldatud peatükis~\ref{dataInput}.
+Andmed itereeritakse ja vormindatakse vastavalt \nameref{subsec:cyto} teegi sisendformaadile.
 Andmete faili kirjutamise implementatsioon on failis \texttt{src/output\_helper.py}.
 
 \subsubsection{Veahaldus}
@@ -665,15 +674,15 @@ kui \texttt{debug = true} või \texttt{info}, kui \texttt{debug = false}).
 
 \subsection{Kasutajaliides}
 Kasutajaliides on staatiline veebileht.
-\TODO{Sissejuhatus kasutajaliidese kohta}
+Kasutajaliidese töö on kuvada tagasüsteemi poolt loodud andmed graafina kasutaja brauseris.
 Kasutajaliidese lähtekood asub \texttt{src/web/} kataloogis.
 
 \subsubsection{Välised teegid} \label{libsUsedInUI}
 Graafide kuvamiseks kasutatakse Javascripti teeki cytoscape.js (\ref{subsec:cyto}).
 Lisaks kasutatakse laiendit
 cytoscape-popper\footnote{\url{https://github.com/cytoscape/cytoscape.js-popper}}, mis lisab
-teegile Popper.js\footnote{\url{https://popper.js.org}} (teek muuhulgas hüpikvihjete kuvamiseks)
-toe.
+cytoscape.js-le Popper.js\footnote{\url{https://popper.js.org}} (teek muuhulgas hüpikvihjete
+kuvamiseks) toe.
 Lisaks võeti kasutusele Tippy.js\footnote{\url{https://atomiks.github.io/tippyjs/}},
 mis teeb hüpikvihjete loomise ja kohandamise Popper.js-iga lihtsamaks.
 
@@ -729,10 +738,48 @@ Antud fail laetakse kasutajaliideses Javascripti lähtekoodina ja seejärel on k
 andmed kasutajaliideses olemas ja neid saab kasutajale kuvada.
 
 \subsubsection{Graafi kuvamine}
-\TODO{kasutatakse cytoscape'i, mis failid includetud}
-\TODO{cytoscape'i implementatsioon ja konf}
-\TODO{puudus graafi servade labe'itega - või see äkki puuduste alla?}
-\TODO{nõuded ja nende implementeerimine}
+Kuna sisendandmed on juba tagasüsteemi poolt teegile cytoscape.js loetavaks vormindatud, on
+graafi kuvamiseks vajalik vaid cytoscape.js seadistada.
+Peamine otsus, mis tuli teha, oli küljenduse
+valimine\footnote{\url{http://js.cytoscape.org/\#layouts}}.
+Hea küljendus kasutab kogu ekraanipinna ära (jaotab tipud laiali) ja samuti asetab tipud nõnda, et
+servad ei kattuks (vt nõue~\ref{itm:req:graphLayout}).
+Autori katsetustest tuli välja, et küljendus \texttt{breadthfirst} kasutas ekraanipinda kõige
+mõistlikumalt - see võeti ka kasutusele.
+Välja tasub tuua ka \texttt{concentric} küljendus, mis toimis samuti hästi, ent mitme graafi
+kuvamisel jäi viimane hätta kogu ekraanipinna ära kasutamisega.
+
+Graafi kujunduses võeti aluseks cytoscape.js-i demo
+\textit{linkout-example}~\footnote{\url{http://js.cytoscape.org/demos/linkout-example}}.
+Samas lisati tippudes tekstile kontrasti (must taust), et lugemist lihtsustada.
+Graafi kuvamine on implementeeritud failis \texttt{src/web/code.js}.
+
+Graafi tippudeks on kommutaatorid, millelt andmeid küsiti (nõue~\ref{itm:req:nodesSwitches}).
+Servadeks on ühendused kommutaatorite vahel (nõue~\ref{itm:req:edgesSwitchConnections}).
+Seejuures kuvatakse servadel ka mõlema kommutaatori pesa, mille kaudu nad ühendatud on.
+Algselt oli plaanis servadel kuvada ühenduste kiirused, kuid otsustati pesa nimede kasuks, sest
+nimi sisaldab lisaks pesa numbrile infot ka kiiruse kohta (Gi on 1000Mbps, Fa on 100Mbps jne).
+\TODO{Pilt graafist}
+
+\subsubsection{Hüpikvihjed}
+Vastavalt nõuetele~\ref{itm:req:popouts} ja ~\ref{itm:req:popoutsOtherDevices}, peavad tippudele
+vajutades avanema hüpikvihjed.
+Nagu peatükis~\ref{libsUsedInUI} juba kirjeldati, implementeeriti hüpikvihjed teegiga Tippy.js, mis
+sisemiselt kasutab Popper.js teeki.
+Popper.js teegi cytoscape.js teegiga integreerimiseks kasutati cytoscape-popper laiendit.
+
+Autori roll hüpikvihjete tööle saamiseks oli Tippy.js implementatsioon seadistada.
+Tippy pakub mitmeid kujundusi\footnote{\url{https://atomiks.github.io/tippyjs/themes}}.
+Autor valis läbipaistva kujunduse, et hüpikaknad ei kataks ära hüpikakna all olevaid graafi
+servasid.
+Hüpikvihjete avamine ja sulgemine (mõlemad tipule vajutades) implementeeeriti Tippy.js teegi
+väliselt eraldi, eesmärgiga, et korraga oleks võimalik avada mitu vihjet.
+
+Vihjete sisu koostatakse Javascriptiga, andmed saadakse samast tagasüsteemi poolt loodud
+sisendfailist, mille põhjal ka graaf tehakse.
+\TODO{Mis andmed kuvatakse}
+Hüpikvihjete implementatsioon on samuti failis \texttt{src/web/code.js}.
+\TODO{Hüpikaknast näidispilt, kui koodis kõik asjad sinna lisatud on}
 
 \subsubsection{Kasutaja muudatuste salvestamine}
 Vastavalt nõudele~\ref{itm:req:saveChanges} pidi kasutajaliides salvestama kasutaja muudatused
@@ -750,19 +797,20 @@ Kui seda varasemalt salvestatud ei ole (esimene külastus), siis laetakse graaf 
 Samuti lisati veebilehele nupp graafi paigutuse taastamiseks - graafi andmefailist uuesti
 laadimiseks.
 
-\TODO{räsi arvutamine ja teate kuvamine, kui andmefail on taustal muutunud, kui see
-implementeeritud saab}
-
-
-
-
-
-\newpage
+%\newpage
 \section{Edasised tegevused}
 \TODO{Sissejuhatav tekst}
 
+\TODO{räsi arvutamine ja teate kuvamine, kui andmefail on taustal muutunud, kui see
+implementeeritud saab}
+\TODO{puudus graafi servade labelitega}
 
+\clearpage
+\section{Kokkuvõte}
 
+\TODO{what did you do?}
+\TODO{What are the results?}
+\TODO{future work?}
 
 
 
@@ -1006,15 +1054,6 @@ implementeeritud saab}
 %\caption{Arithmetic operations in \proveit revisited.}
 %\label{fig:aritmOp_revisit}
 %\end{figure}
-
-
-
-\clearpage
-\section{Conclusion}
-
-\TODO{what did you do?}
-\TODO{What are the results?}
-\TODO{future work?}
 
 \newpage
 

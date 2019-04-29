@@ -1,27 +1,35 @@
 \BOOKMARK [1][-]{section.1}{Sissejuhatus}{}% 1
-\BOOKMARK [1][-]{section.2}{Sarnased lahendused}{}% 2
-\BOOKMARK [1][-]{section.3}{S\374steemi kirjeldus}{}% 3
-\BOOKMARK [2][-]{subsection.3.1}{Kasutamise eeldused}{section.3}% 4
-\BOOKMARK [2][-]{subsection.3.2}{Rakenduse n\365uded}{section.3}% 5
-\BOOKMARK [1][-]{section.4}{Kasutatud tehnoloogiad}{}% 6
-\BOOKMARK [2][-]{subsection.4.1}{Kasutamise eeldused}{section.4}% 7
-\BOOKMARK [2][-]{subsection.4.2}{Rakenduse n\365uded}{section.4}% 8
-\BOOKMARK [1][-]{section.5}{Title of Section 2}{}% 9
-\BOOKMARK [2][-]{subsection.5.1}{Title of Subsection 1}{section.5}% 10
-\BOOKMARK [3][-]{subsubsection.5.1.1}{Title of Subsubsection 1}{subsection.5.1}% 11
-\BOOKMARK [3][-]{subsubsection.5.1.2}{Title of Subsubsection 2}{subsection.5.1}% 12
-\BOOKMARK [2][-]{subsection.5.2}{Title of Subsection 2}{section.5}% 13
-\BOOKMARK [2][-]{subsection.5.3}{How to use references}{section.5}% 14
-\BOOKMARK [1][-]{section.6}{How to add figures and pictures to your thesis}{}% 15
-\BOOKMARK [1][-]{section.7}{Other Ways to Represent Data}{}% 16
-\BOOKMARK [2][-]{subsection.7.1}{Tables}{section.7}% 17
-\BOOKMARK [2][-]{subsection.7.2}{Lists}{section.7}% 18
-\BOOKMARK [2][-]{subsection.7.3}{Math mode}{section.7}% 19
-\BOOKMARK [2][-]{subsection.7.4}{algorithm2e}{section.7}% 20
-\BOOKMARK [2][-]{subsection.7.5}{Pseudocode}{section.7}% 21
-\BOOKMARK [2][-]{subsection.7.6}{Frame Around Information}{section.7}% 22
-\BOOKMARK [1][-]{section.8}{Conclusion}{}% 23
-\BOOKMARK [1][-]{section*.44}{Viidatud kirjandus}{}% 24
-\BOOKMARK [1][-]{section*.45}{Lisad}{}% 25
-\BOOKMARK [2][-]{section*.46}{I. Glossary}{section*.45}% 26
-\BOOKMARK [2][-]{section*.47}{II. Litsents}{section*.45}% 27
+\BOOKMARK [1][-]{section.2}{Rakenduse n\365uded}{}% 2
+\BOOKMARK [2][-]{subsection.2.1}{Kasutamise eeldused}{section.2}% 3
+\BOOKMARK [2][-]{subsection.2.2}{Rakenduse n\365uded}{section.2}% 4
+\BOOKMARK [1][-]{section.3}{Sarnased lahendused}{}% 5
+\BOOKMARK [2][-]{subsection.3.1}{Netcrawl}{section.3}% 6
+\BOOKMARK [2][-]{subsection.3.2}{Netdisco}{section.3}% 7
+\BOOKMARK [2][-]{subsection.3.3}{Foo}{section.3}% 8
+\BOOKMARK [1][-]{section.4}{Kasutatud tehnoloogiad}{}% 9
+\BOOKMARK [2][-]{subsection.4.1}{Keeled}{section.4}% 10
+\BOOKMARK [2][-]{subsection.4.2}{CDP ja LLDP}{section.4}% 11
+\BOOKMARK [2][-]{subsection.4.3}{SNMP}{section.4}% 12
+\BOOKMARK [2][-]{subsection.4.4}{easySNMP}{section.4}% 13
+\BOOKMARK [2][-]{subsection.4.5}{Cytoscape.js}{section.4}% 14
+\BOOKMARK [1][-]{section.5}{Valminud rakenduse kirjeldus}{}% 15
+\BOOKMARK [2][-]{subsection.5.1}{Tagas\374steem}{section.5}% 16
+\BOOKMARK [3][-]{subsubsection.5.1.1}{Rakenduse seadistamine}{subsection.5.1}% 17
+\BOOKMARK [3][-]{subsubsection.5.1.2}{Rakenduse p\365hivoog}{subsection.5.1}% 18
+\BOOKMARK [3][-]{subsubsection.5.1.3}{P\344ritavad andmed}{subsection.5.1}% 19
+\BOOKMARK [3][-]{subsubsection.5.1.4}{Andmete faili salvestamine}{subsection.5.1}% 20
+\BOOKMARK [3][-]{subsubsection.5.1.5}{Veahaldus}{subsection.5.1}% 21
+\BOOKMARK [3][-]{subsubsection.5.1.6}{Logimine}{subsection.5.1}% 22
+\BOOKMARK [2][-]{subsection.5.2}{Kasutajaliides}{section.5}% 23
+\BOOKMARK [3][-]{subsubsection.5.2.1}{V\344lised teegid}{subsection.5.2}% 24
+\BOOKMARK [3][-]{subsubsection.5.2.2}{Lokaalse faili laadimine brauseris}{subsection.5.2}% 25
+\BOOKMARK [3][-]{subsubsection.5.2.3}{Tagas\374steemi loodud sisendi lugemine}{subsection.5.2}% 26
+\BOOKMARK [3][-]{subsubsection.5.2.4}{Graafi kuvamine}{subsection.5.2}% 27
+\BOOKMARK [3][-]{subsubsection.5.2.5}{H\374pikvihjed}{subsection.5.2}% 28
+\BOOKMARK [3][-]{subsubsection.5.2.6}{Kasutaja muudatuste salvestamine}{subsection.5.2}% 29
+\BOOKMARK [1][-]{section.6}{Edasised tegevused}{}% 30
+\BOOKMARK [1][-]{section.7}{Kokkuv\365te}{}% 31
+\BOOKMARK [1][-]{section*.34}{Viidatud kirjandus}{}% 32
+\BOOKMARK [1][-]{section*.35}{Lisad}{}% 33
+\BOOKMARK [2][-]{section*.36}{I. Glossary}{section*.35}% 34
+\BOOKMARK [2][-]{section*.37}{II. Litsents}{section*.35}% 35

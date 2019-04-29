@@ -1,33 +1,59 @@
-\begin{thebibliography}{Kam12}
+\begin{thebibliography}{Bha15b}
 
-\bibitem[BGZ09]{certicrypt}
-Gilles Barthe, Benjamin Gr{\'e}goire, and Santiago {Zanella B{\'e}guelin}.
-\newblock Formal certification of code-based cryptographic proofs.
-\newblock In {\em 36th ACM SIGPLAN-SIGACT Symposium on Principles of
-  Programming Languages, POPL 2009}, pages 90--101. ACM, 2009.
+\bibitem[Bar08]{localWebSec}
+Adam Barth.
+\newblock Security in depth: Local web pages.
+\newblock Chromium Blog, \url {
+  https://blog.chromium.org/2008/12/security-in-depth-local-web-pages.html },
+  2008.
 
-\bibitem[Bla]{proVerif}
-Bruno Blanchet.
-\newblock {Proverif: Cryptographic protocol verifier in the formal model}.
-\newblock \url{http://www.proverif.ens.fr/}.
+\bibitem[Bar11]{ietfOrigin}
+Adam Barth.
+\newblock The web origin concept.
+\newblock \url { https://tools.ietf.org/html/rfc6454 }, 2011.
 
-\bibitem[BR04]{GameB_1}
-Mihir Bellare and Phillip Rogaway.
-\newblock Code-based game-playing proofs and the security of triple encryption.
-\newblock Cryptology ePrint Archive, Report 2004/331, 2004.
-\newblock \url{http://eprint.iacr.org/}.
+\bibitem[Bha15a]{cdpInfo}
+Deben Bhattarai.
+\newblock Cisco discovery protocol (cdp).
+\newblock The Cisco Learning Network, 2015.
+\newblock \url { https://learningnetwork.cisco.com/docs/DOC-26872 }.
 
-\bibitem[Kam12]{kamm12}
-Liina Kamm.
-\newblock {ProveIt -- How to make proving cryptographic protocols less
-  tedious}.
-\newblock Talk at the 21st Estonian Computer Science Theory Days at Kubija,
-  January 2012.
+\bibitem[Bha15b]{lldpInfo}
+Deben Bhattarai.
+\newblock Link layer discovery protocol (lldp).
+\newblock The Cisco Learning Network, 2015.
+\newblock \url { https://learningnetwork.cisco.com/docs/DOC-26851 }.
 
-\bibitem[Sho04]{GameB_2}
-Victor Shoup.
-\newblock Sequences of games: a tool for taming complexity in security proofs.
-\newblock Cryptology ePrint Archive, Report 2004/332, 2004.
-\newblock \url{http://eprint.iacr.org/}.
+\bibitem[cyt]{cytoscapeIntro}
+Cytoscape.js.
+\newblock \url { http://js.cytoscape.org/#introduction }.
+\newblock Vaadatud: 25.03.2019.
+
+\bibitem[eas]{easySNMPDocs}
+Easy snmp documentation.
+\newblock \url { https://easysnmp.readthedocs.io }.
+\newblock Vaadatud: 25.03.2019.
+
+\bibitem[ffC]{ffCORS}
+Same-origin policy for file: Uris.
+\newblock \url {
+  https://developer.mozilla.org/en-US/docs/Archive/Misc_top_level/Same-origin_policy_for_file:_URIs
+  }.
+\newblock Vaadatud: 26.03.2019.
+
+\bibitem[ky]{netcrawl}
+Github kasutaja ytti.
+\newblock Netcrawl - lldp/cdp crawler.
+\newblock \url { https://github.com/ytti/netcrawl }.
+\newblock Vaadatud: 08.04.2019.
+
+\bibitem[Laa08]{sissejuhVorg}
+Erkki Laaneoks.
+\newblock {\em Sissejuhatus võrgutehnoloogiasse}.
+\newblock Tartu Ülikooli Kirjastus, 2008.
+
+\bibitem[w3C14]{w3CORS}
+Cross-origin resource sharing.
+\newblock W3C Recommendation, \url { https://www.w3.org/TR/cors/ }, 2014.
 
 \end{thebibliography}

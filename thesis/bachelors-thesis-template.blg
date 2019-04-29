@@ -1,46 +1,51 @@
-This is BibTeX, Version 0.99d (TeX Live 2016/Debian)
+This is BibTeX, Version 0.99d (TeX Live 2017/Debian)
 Capacity: max_strings=100000, hash_size=100000, hash_prime=85009
 The top-level auxiliary file: bachelors-thesis-template.aux
 The style file: alpha.bst
 Database file #1: bachelor-thesis.bib
-You've used 5 entries,
+Warning--to sort, need author or key in easySNMPDocs
+Warning--to sort, need author or key in cytoscapeIntro
+Warning--to sort, need author or key in w3CORS
+Warning--to sort, need author or key in ffCORS
+You've used 10 entries,
             2543 wiz_defined-function locations,
-            587 strings with 5325 characters,
-and the built_in function-call counts, 1727 in all, are:
-= -- 173
-> -- 68
-< -- 4
-+ -- 21
-- -- 21
-* -- 90
-:= -- 280
-add.period$ -- 18
-call.type$ -- 5
-change.case$ -- 28
-chr.to.int$ -- 5
-cite$ -- 5
-duplicate$ -- 67
-empty$ -- 143
-format.name$ -- 29
-if$ -- 368
-int.to.chr$ -- 1
+            609 strings with 5672 characters,
+and the built_in function-call counts, 2521 in all, are:
+= -- 249
+> -- 52
+< -- 6
++ -- 14
+- -- 12
+* -- 110
+:= -- 369
+add.period$ -- 32
+call.type$ -- 10
+change.case$ -- 45
+chr.to.int$ -- 9
+cite$ -- 18
+duplicate$ -- 111
+empty$ -- 259
+format.name$ -- 23
+if$ -- 554
+int.to.chr$ -- 2
 int.to.str$ -- 0
-missing$ -- 1
-newline$ -- 30
-num.names$ -- 15
-pop$ -- 46
+missing$ -- 2
+newline$ -- 55
+num.names$ -- 18
+pop$ -- 101
 preamble$ -- 1
-purify$ -- 33
+purify$ -- 56
 quote$ -- 0
-skip$ -- 64
+skip$ -- 91
 stack$ -- 0
-substring$ -- 62
-swap$ -- 13
-text.length$ -- 4
-text.prefix$ -- 3
+substring$ -- 75
+swap$ -- 10
+text.length$ -- 6
+text.prefix$ -- 5
 top$ -- 0
-type$ -- 40
-warning$ -- 0
-while$ -- 15
-width$ -- 7
-write$ -- 67
+type$ -- 76
+warning$ -- 4
+while$ -- 12
+width$ -- 12
+write$ -- 122
+(There were 4 warnings)

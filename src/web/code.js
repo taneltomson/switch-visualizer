@@ -47,11 +47,11 @@ var cy = cytoscape({
     spacingFactor: 1.2, // positive spacing factor, larger => more space between nodes (N.B. n/a if causes overlap)
     boundingBox: undefined, // constrain layout bounds; { x1, y1, x2, y2 } or { x1, y1, w, h }
     avoidOverlap: true, // prevents node overlap, may overflow boundingBox if not enough space
-    nodeDimensionsIncludeLabels: false, // Excludes the label when calculating node bounding boxes for the layout algorithm
+    nodeDimensionsIncludeLabels: true, // Excludes the label when calculating node bounding boxes for the layout algorithm
     roots: undefined, // the roots of the trees
     maximalAdjustments: 0, // how many times to try to position the nodes in a maximal way (i.e. no backtracking)
     animate: false, // whether to transition the node positions
-    ready: restoreSavedLayoutOnReadyEvent, // callback on layoutready
+    ready: onCytoscapeReadyEvent, // callback on layoutready
     stop: undefined, // callback on layoutstop
     transform: function (node, position ){ return position; } // transform a given node position. Useful for changing flow direction in discrete layouts
   }
@@ -68,6 +68,12 @@ document.getElementById("resetBtn").addEventListener("click", function() {
     saveLayoutWhenLeaving = false;
     location.reload();
 });
+
+function onCytoscapeReadyEvent(event) {
+    // TODO: Check file hashes
+
+    restoreSavedLayoutOnReadyEvent(event);
+}
 
 function restoreSavedLayoutOnReadyEvent(event) {
     var storedLayout = localStorage.getItem('graphLayout');

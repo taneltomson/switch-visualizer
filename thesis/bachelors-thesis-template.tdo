@@ -8,23 +8,24 @@
 \contentsline {todo}{Two or three sentences to provide a broader perspective, readily comprehensible to a scientist in any discipline, may be included in the first paragraph if the editor considers that the accessibility of the paper is significantly enhanced by their inclusion.}{2}{section*.8}
 \contentsline {todo}{List of keywords}{2}{section*.9}
 \contentsline {todo}{CERCS kood ja nimetus:~\url {https://www.etis.ee/Portal/Classifiers/Details/d3717f7b-bec8-4cd9-8ea4-c89cd56ca46e}}{2}{section*.10}
-\contentsline {todo}{List of keywords}{3}{section*.11}
-\contentsline {todo}{CERCS code and name:~\url {https://www.etis.ee/Portal/Classifiers/Details/d3717f7b-bec8-4cd9-8ea4-c89cd56ca46e}}{3}{section*.12}
-\contentsline {todo}{Eemalda l\IeC {\~o}plikust versioonist}{6}{section*.15}
-\contentsline {todo}{What is it in simple terms (title)?}{7}{section*.16}
-\contentsline {todo}{Why should anyone care?}{7}{section*.17}
-\contentsline {todo}{What was my contribution?}{7}{section*.18}
-\contentsline {todo}{What you are doing in each section (a sentence or two per section)}{7}{section*.19}
-\contentsline {todo}{Sissejuhatav tekst}{8}{section*.20}
-\contentsline {todo}{Loetelu neist rakendustest}{8}{section*.21}
-\contentsline {todo}{Netdisco}{8}{section*.22}
-\contentsline {todo}{netcrawl}{8}{section*.23}
-\contentsline {todo}{Rakenduse n\IeC {\~o}uded}{9}{section*.24}
-\contentsline {todo}{Rakenduse n\IeC {\~o}uded}{9}{section*.25}
-\contentsline {todo}{Rakenduse n\IeC {\~o}uded}{10}{section*.26}
-\contentsline {todo}{Rakenduse n\IeC {\~o}uded}{10}{section*.27}
-\contentsline {todo}{Short description of what this section is about}{11}{section*.28}
-\contentsline {todo}{what did you do?}{18}{section*.41}
-\contentsline {todo}{What are the results?}{18}{section*.42}
-\contentsline {todo}{future work?}{18}{section*.43}
-\contentsline {todo}{kuup\IeC {\"a}ev}{21}{section*.49}
+\contentsline {todo}{Abstract}{2}{section*.11}
+\contentsline {todo}{List of keywords}{2}{section*.12}
+\contentsline {todo}{CERCS code and name:~\url {https://www.etis.ee/Portal/Classifiers/Details/d3717f7b-bec8-4cd9-8ea4-c89cd56ca46e}}{2}{section*.13}
+\contentsline {todo}{Eemalda l\IeC {\~o}plikust versioonist}{7}{section*.16}
+\contentsline {todo}{What you are doing in each section (a sentence or two per section)}{8}{section*.17}
+\contentsline {todo}{Riistvara ja tarkvara jm n\IeC {\~o}uded}{9}{section*.18}
+\contentsline {todo}{Netdisco \IeC {\"u}levaade}{11}{section*.19}
+\contentsline {todo}{kolmas sarnane lahendus?}{11}{section*.20}
+\contentsline {todo}{Tabel OID-dest ja kus neid andmeid kasutatakse?}{15}{section*.22}
+\contentsline {todo}{Iga OID kohta: oid, kas seadme kohta v\IeC {\~o}i naabri?, kus kasutajaliideses kuvatakse?}{15}{section*.23}
+\contentsline {todo}{sysName kasutatakse id-na -- kas tahan r\IeC {\"a}\IeC {\"a}kida sellest, et miks? indeksid erinevate mib-de vahel erinevad}{15}{section*.24}
+\contentsline {todo}{Pilt graafist}{18}{section*.25}
+\contentsline {todo}{Mis andmed kuvatakse}{18}{section*.26}
+\contentsline {todo}{H\IeC {\"u}pikaknast n\IeC {\"a}idispilt, kui koodis k\IeC {\~o}ik asjad sinna lisatud on}{18}{section*.27}
+\contentsline {todo}{Sissejuhatav tekst}{19}{section*.28}
+\contentsline {todo}{r\IeC {\"a}si arvutamine ja teate kuvamine, kui andmefail on taustal muutunud, kui see implementeeritud saab}{19}{section*.29}
+\contentsline {todo}{puudus graafi servade labelitega}{19}{section*.30}
+\contentsline {todo}{what did you do?}{20}{section*.31}
+\contentsline {todo}{What are the results?}{20}{section*.32}
+\contentsline {todo}{future work?}{20}{section*.33}
+\contentsline {todo}{kuup\IeC {\"a}ev}{23}{section*.39}
