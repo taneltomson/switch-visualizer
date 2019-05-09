@@ -20,6 +20,8 @@
 % Fix long urls in footnotes
 \usepackage[hyphens]{url}
 
+\usepackage{tabularx}
+
 %%=== A4 page setup ===
 %\setlength{\paperwidth}{21.0cm}
 %\setlength{\paperheight}{29.7cm}
@@ -226,8 +228,7 @@ Informaatika õppekava\\%[2mm]
 
 \vspace{4mm}
 
-\TODO{Töö pealkiri täpsustada}
-\huge Võrgukommutaatorite visualiseerimine
+\huge Võrgutopoloogia visualiseerimine
 
 %\vspace*{\stretch{7}}
 \vspace{20mm}
@@ -274,14 +275,27 @@ Informaatika õppekava\\%[2mm]
 %=== Info in English
 \newcommand\EngInfo{{%
 \selectlanguage{english}
-\noindent\textbf{\large Visualizing network switches}
+\noindent\textbf{\large Visualizing network topology}
 
 \vspace*{3ex}
 
 \noindent\textbf{Abstract:}
 
-\TODO{Abstract}
 \noindent
+The number of computers and network switches that connect the computers to a local area network can
+grow large.
+Maintaining an overview of the topology of those networks can get cumbersome to network
+administrators.
+The aim of this thesis is to write a standalone tool that is simple to use and produces a graphical
+overview of the topology of a local area network for network administrators to use.
+
+As a result a program was written.
+The program asks configured network devices for information about their neighbours using the SNMP
+protocool and proceeds to create a website displaying the network topology as a graph.
+The installation and running of the program is simple, there is no need to install a large network
+monitoring system.
+Finished application was tested in the local area network of Cybernetica AS.
+
 %Many interpreting program languages are dynamically typed, such as Visual Basic or Python. As a
 %result, it is easy to write programs that crash due to mismatches of provided and expected data
 %types.  One possible solution to this problem is automatic type derivation during compilation.
@@ -323,23 +337,17 @@ Informaatika õppekava\\%[2mm]
 
 %\noindent ...
 
-\TODO{One or two sentences providing a basic introduction to the field, comprehensible to a scientist in
-any discipline.}
-\TODO{Two to three sentences of
-more detailed background, comprehensible to scientists in related disciplines.}
-\TODO{One sentence clearly stating the general problem being addressed by this particular
-study.}
-\TODO{One sentence summarising the main result (with the words ``here we show´´ or their equivalent).}
-\TODO{Two or three sentences explaining what
-the main result reveals in direct
-comparison to what was thought to be the case previously, or how the main result adds to previous knowledge.}
-\TODO{One or two sentences to put the results into a more general context.}
-\TODO{Two or three sentences to provide a
-broader perspective, readily
-comprehensible to a scientist in any
-discipline, may be included in the first paragraph
-if the editor considers that the accessibility of
-the paper is significantly enhanced by their inclusion.}
+Võrguadministraatori hallatavas kohtvõrgus võib arvutite ja neid kohtvõrku
+ühendatavate võrgukommutaatorite arv olla suur.
+Kohtvõrgu topoloogiast ülevaate saamine võib muutuda tülikaks.
+Bakalaureusetöö eesmärgiks on luua lihtsasti kasutatav, eraldiseisev ja graafilist väljundit pakkuv
+töövahend võrguadministraatorile kohtvõrgu topoloogiast ülevaate saamiseks.
+
+Töö raames kirjutati programm, mis küsib seadistatud võrguseadmetelt üle SNMP protokolli andmed tema naabrite
+kohta ja koostab seejärel veebilehe, kus kuvatakse seadmete topoloogia graafina.
+Rakenduse paigaldamine ja käivitamine on lihtne, vajalik ei ole mahuka võrguhaldustarkvara
+paigaldamine.
+Valminud rakendust testiti Cybernetica AS kohtvõrgus.
 
 \vspace*{1ex}
 
@@ -380,46 +388,88 @@ the paper is significantly enhanced by their inclusion.}
 \newpage
 \section{Sissejuhatus}
 
+\TODO{ideaga vead üle vaadata}
+
 Võrgukommutaator (inglise keeles \textit{switch}, edaspidi ka lihtsalt kommutaator) on
-võrguseade, mis ühendab seadmeid arvutivõrku.
+võrguseade, mis ühendab seadmeid kohtvõrku.
 Näiteks kontorites, kus on reeglina hulgaliselt võrguseadmeid (arvutid, printerid jne), kasutatakse
-kommutaatoreid, et suur arv seadmeid saaksid arvutivõrguga ühenduda.
+kommutaatoreid, et suur arv seadmeid saaksid kohtvõrguga ühenduda.
 
 Võrgukommutaatoritest võib mõelda kui sorteerimisekeskustest postiteenuses.
 Igal sorteerimiskeskusesse jõudval kirjal on sihtkoht, selleks on ümbrikul addressaat ja aadress.
 Sorteerimiskeskuses otsustatakse, kuhu iga kiri edasi tuleb saata.
-Sama ülesanne on ka võrgukommutaatoril - otsustada, millisele ühendatud võrguseadmele iga pakett
+Sama ülesanne on ka võrgukommutaatoril -- otsustada, millisele ühendatud võrguseadmele iga pakett
 (kiri) edasi saata.
 
-Kommutaatoreid - mida reeglina haldavad süsteemiadministraatorid - võib arvutivõrgus olla mitu.
-On protokolle, mille abil saab võrgukommutaatoritelt haldusinfot küsida.
-Kommutaatorilt infot küsides on tihti vastuseks saadud andmete hulk suur ja vajab lisatöötlust.
-Ülevaate saamine, kuidas kommutaatorid üksteisega ühendatud on, võib muutuda tülikaks ja
-aeganõudvaks.
-Töö autor kirjutas programmi, mis abistab võrgukommutaatorite haldamist, visualiseerides
-kommutaatorite paiknemist üksteise suhtes.
-Fookus on just kommutaatorite endi paiknemise visualiseerimisel, jättes lisainformatsiooni (muud
-ühendatud seadmed) tagaplaanile.
+Kommutaatoreid -- mida reeglina haldavad süsteemiadministraatorid -- võib arvutivõrgus olla mitu.
+Kohtvõrgu topoloogiast (kuidas kommutaatorid üksteisega ühendatud on) ülevaate saamine võib
+muutuda tülikaks ja aeganõudvaks.
+Kommutaatoritelt saab küll naabrite kohta infot küsida, ent liidesed selleks on disainitud eelkõige
+masinloetavaks, mis teeb nende otse kasutamise inimesele ebamugavaks.
+
+Antud töö eesmärk on luua graafilist väljundit pakkuv eraldiseisev töövahend kohtvõrgu
+topoloogiast ülevaate saamiseks.
+Fookus on just kommutaatorite üksteise suhtes paiknemise visualiseerimisel, jättes
+lisainformatsiooni (muud ühendatud seadmed) tagaplaanile.
 
 Järnevalt on toodud töö struktuur.
-Peatükis "\nameref{reqs}", kirjeldatakse rakenduse jooksutamiseks vajalikud tingimused
+Peatükk~\ref{sec:techintro} annab tehnilise ülevaate protokollidest, mida rakendus kasutab.
+Peatükis~\ref{reqs} kirjeldatakse rakenduse jooksutamiseks vajalikud tingimused
 ning enne rakenduse arendamist paika pandud nõuded.
-Peatükis "\nameref{similar}" tuuakse ülevaade sarnast funktsionaalsust pakkuvatest
-rakendustest.
-"\nameref{usedTech}" kirjeldab tehnoloogiaid, teeke ja rakendusi, mida programm kasutab või mida
+Peatükis~\ref{similar} tuuakse ülevaade sarnast funktsionaalsust pakkuvatest
+rakendustest.~\ref{usedTech} kirjeldab tehnoloogiaid ja teeke, mida programm kasutab või mida
 kasutati arendusprotsessis.
-Peatükis "\nameref{description}" tehakse detailne ja tehniline ülevaade rakenduse arhitektuurist.
-Samuti põhjendatakse tehtud otsuseid ning näidatakse rakenduse nõuete täitmist.
-\TODO{What you are doing in each section (a sentence or two per section)}
+Peatükis~\ref{description} tehakse detailne ja tehniline ülevaade rakenduse arhitektuurist.
+Samuti põhjendatakse tehtud otsuseid ning näidatakse rakenduse nõuete täitmist ja tuuakse puudused.
 
+\newpage
+\section{Tehniline taust} \label{sec:techintro}
+Järgnevalt teeme tehnilise sissejuhatuse võrguprotokollidele, mille abil saab võrguseadmetelt
+haldusinfot küsida.
+Antud protokollid on loodud haldusandmete jagamiseks ja loovad vundamendi meie rakenduse
+kirjutamiseks.
+
+
+\subsection{CDP ja LLDP}
+CDP (\textit{Cisco Discovery Protocol}) ja LLDP (\textit{Link Layer Discovery Protocol}) on
+mõlemad võrguprotokollid ühendatud võrguseadmetele haldusinformatsiooni jagamiseks.
+LLDP ja CDP on funktsionaalsuse poolest küllaltki sarnased.
+Peamine erinevus kahe protokolli vahel on, et CDP on Cisco (võrguseadmete tootja)
+loodud ja hallatav omandprotokoll~\cite{cdpInfo}.
+LLDP seevastu on avatud ja seadmetootjate ülene protokoll, LLDP standardit haldab
+IEEE~\cite{lldpInfo}.
+
+\subsection{SNMP} \label{subsec:snmp}
+SNMP (\textit{Simple network management protocol}) on laialdaselt kasutatav
+võrguhaldusprotokoll, mis kuulub OSI mudelis rakenduskihti~\cite[151]{sissejuhVorg}.
+Protokoll lihtsustab ja ühtlustab võrguseadmetelt haldusinfo küsimist~\cite[151]{sissejuhVorg}.
+
+Hallatavad seadmed hoiavad haldusinfot MIB-i struktuuris, mis on hierarhiline andmebaas~\cite[152]{sissejuhVorg}.
+Igal objektil on oma unikaalne identifikaator (OID)~\cite[152]{sissejuhVorg}.
+Valminud rakendus kasutab konkreetseid OID-sid, et kommutaatoritelt vajalikke andmeid küsida.
+
+SNMP protokoll defineerib päringute päises ka parameetri kogukonnasõne (\textit{community string}).
+Kogukonnasõne võimaldab teha päringutele triviaalset autentimist (nt lubada andmete pärimist
+vaid kindlate kogukonnasõnedega)~\cite[154-155]{sissejuhVorg}.
+
+SNMP-st on 3 põhilist versiooni: 1, 2 ja 3~\cite[151]{sissejuhVorg}.
+Valminud rakendus kasutab versiooni 2 (täpsemalt 2c).
+
+Valminud rakendus kasutab SNMP protokolli, et sisendiks saadud võrguseadmetelt CDP ja LLDP
+andmeid küsida.
 
 
 \newpage
 \section{Rakenduse nõuded} \label{reqs}
-Enne rakenduse programmeerimist fikseeriti rakenduse nõuded.
-Järgnev peatükk kirjeldab eeldused rakenduse käivitamiseks ning selle nõuded.
+Enne rakenduse programmeerimist pandi paika visioon sellest, kuidas ja mida rakendus tegema peab.
+Vajadus oli programmi järele, mis teeks ühte konkreetset asja hästi, mitte ei prooviks
+kompromissidega pakkuda suurt funktsionaalsust.
+Rakenduse paigaldamine ja käivitamine peab olema lihtne, ei tohi eeldada ühegi suurema
+võrguhaldustarkvara olemasolu.
+Võrguadministraator peaks saama seda lihtsasti käsitsi käivitada, vastavalt enda töövoole.
 
-\TODO{Riistvara ja tarkvara jm nõuded}
+Et kõik rakenduse eesmärkidest ühtmoodi aru saaksid, fikseeriti töö algusjärgus rakenduse nõuded,
+mis järnevalt välja tuuakse.
 
 \subsection{Kasutamise eeldused}
 Rakenduse kasutamiseks on tehtud eeldus, et kasutajal on kontroll kaardistatavate võrgukommutaatorite üle.
@@ -427,34 +477,43 @@ Võrgukommutaatorid peavad olema programmi jaoks kättesaadavad ja vajalikku inf
 See tähendab, et võrgukommutaatoritel peab töötama SNMP teenus ja see peab olema seadistatud jagama
 CDP või LLDP andmeid.
 
+Rakenduse jooksutamiseks on peamine riistvaraline nõue, et masinal peab olema ligipääs seadmetele,
+millelt andmeid küsitakse.
+Rakendus arendati peamiselt operatsioonisüsteemi Linux silmas pidades ja selle jaoks koostati ka
+käivitamisjuhend ja teostati rakenduse testimine.
+On võimalik, et rakendus toimib ka teistel operatsioonisüsteemidel, ent seda ei testitud.
+
 \subsection{Rakenduse nõuded}
 \begin{enumerate}
+    \item Rakendus peab toimima vähemalt operatsioonisüsteemil Linux.
     \item Rakenduse käivitamine toimub käsurealt, vajalik python (koos vähemalt ühe SNMP teegiga)
-    ja SNMP
+    ja SNMP.
     \item Rakenduse sisendiks on ühe või mitme võrgukommutaatori aadress ja seadmetes seadistatud
-    SNMP kommuuni nimi
+    SNMP kommuuni nimi.
     \item \label{itm:req:diffcommunities} Kui antakse ette mitu seadet, on võimalus määrata
-    erinevatele seadmetele erinevad SNMP kommuunide nimed
+    erinevatele seadmetele erinevad SNMP kommuunide nimed.
 
-    \item Rakendus küsib igalt sisendiks saadud seadmelt LLDP/CDP andmed (nimi, ip, mac; ühenduste füüsiline port, nimi, ip, mac)
-    \item Rakendus töötleb ja vormindab saadud andmed
-    \item Tekkinud vead kuvatakse kasutajale mõistlikult (mis juhtus, mida teha)
+    \item Rakendus küsib igalt sisendiks saadud seadmelt LLDP/CDP andmed (nimi, IP-aadress,
+    MAC-aadress; ühenduste füüsiline port, nimi, IP-aadress, MAC-aadress).
+    \item Rakendus töötleb ja vormindab saadud andmed.
+    \item Tekkinud vead kuvatakse kasutajale mõistlikult (mis juhtus, mida teha).
 
     \item Rakendus loob antud andmete põhjal staatilise veebilehe (.html), kus kuvatakse
-    graaf võrgukommutaatorite kohta
-    \item Staatilise veebilehe vaatamiseks pole vaja internetiühendust (CSS ja JS lokaalsed)
-    \item \label{itm:req:nodesSwitches} Graafi tipud on võrgukommutaatorid
+    graaf võrgukommutaatorite kohta.
+    \item Staatilise veebilehe vaatamiseks pole vaja internetiühendust (CSS ja JS lokaalsed).
+    \item Veebilehte saab vaadata ka ilma veebiserverita (üle \texttt{file://} URI-skeemi).
+    \item \label{itm:req:nodesSwitches} Graafi tipud on võrgukommutaatorid.
     \item \label{itm:req:edgesSwitchConnections} Graafi servad tippude vahel on võrgukommutaatorite
-    ühendused, erinevad ühenduste kiirused on tähistatud erinevalt
+    ühendused, erinevad ühenduste kiirused on tähistatud erinevalt.
     \item \label{itm:req:graphLayout}Graafis on vaikimisi paigutus mõistlik, see tähendab, et tipud
-    ei kattu ja kui tekib mitu graafi, kuvatakse need üksteisest pisut eemal
-    \item \label{itm:req:dragSwitches} Graafis on võimalik seadmeid enda suva järgi lohistada
+    ei kattu ja kui tekib mitu graafi, kuvatakse need üksteisest pisut eemal.
+    \item \label{itm:req:dragSwitches} Graafis on võimalik seadmeid enda suva järgi lohistada.
     \item \label{itm:req:popouts} Graafis kuvatakse tippudes seadme nimi (aadress), tipule peale
-    vajutades on võimalik näha lisainfot seadme kohta
+    vajutades avaneb hüpikvihje.
     \item \label{itm:req:popoutsOtherDevices}Tipule peale vajutades on võimalik näha nimekirja
-    kommutaatoriga ühendatud teistest seadmetest
+    kommutaatoriga ühendatud teistest seadmetest.
     \item \label{itm:req:saveChanges} Kasutaja graafile tehtud muudatused salvestatakse
-    kasutaja brauseriga lokaalselt (küpsised või localstorage) ja taastatakse järgmisel avamisel
+    kasutaja brauseriga lokaalselt (küpsised või localstorage) ja taastatakse järgmisel avamisel.
 \end{enumerate}
 
 
@@ -467,12 +526,12 @@ tuues välja nende tugevused ja puudused.
 
 \subsection{Netcrawl}
 Netcrawl on lihtne programm, mille sisendiks on ühe võrguseadme aadress ja SNMP kogukonnasõne.
-Rakendus küsib seejärel seadmelt naabrite info ja kordab tegevust naabrite puhul.
-Väljundfail on DOT-keeles\footnote{\url{https://graphviz.gitlab.io/_pages/doc/info/lang.html}},
-mida kasutab visualiseerimiseks Graphviz\footnote{url{https://www.graphviz.org/}} - graafide
+Rakendus küsib seejärel seadmelt naabrite info ja kordab tegevust naabrite puhul~\cite{netcrawl}.
+Väljundfail on DOT-keeles\footnote{\url{https://graphviz.gitlab.io/_pages/doc/info/lang.html}}~\cite{netcrawl},
+mida kasutab visualiseerimiseks Graphviz\footnote{url{https://www.graphviz.org/}} -- graafide
 visualiseerimise tarkvara.
-Tulemuseks on pildifail graafiga, kus on leitud võrgukommutaatorid ja nende naabrid.
-~\cite{netcrawl}
+Tulemuseks on pildifail graafiga, kus on leitud võrgukommutaatorid ja nende naabrid~\cite{netcrawl}.
+
 
 Netcrawl on üsna sarnane töö käigus loodava rakendusega.
 Rakenduse kasutamine on lihtne ja mõne üksiku mööndusega rahuldab programm meie nõuded.
@@ -480,7 +539,7 @@ Küll aga on mõned olulised puudused.
 Suurim erinevus on programmi väljundi formaat - Netcrawli kasutamisel tekib pildifail.
 Nõue~\ref{itm:req:dragSwitches} täpsustab aga võimaluse kasutajal graafi tippe interaktiivselt
 ümber paigutada.
-Samuti paneb programm kõik leitud seadmed graafi (sh kommutaatoriga ühendatud teised seadmed) -
+Samuti paneb programm kõik leitud seadmed graafi (sh kommutaatoriga ühendatud teised seadmed) --
 see tähendab, et kui seadmeid on palju, muutub graaf segaseks.
 Loodud programmis tehti otsus, et kommutaatoritega ühendatud seadmeid graafis ei kuvata, vaid need
 kuvatakse graafi tippudele (kommutaatoritele) vajutades
@@ -489,16 +548,41 @@ Lisaks ei saa Netcrawliga anda erinevatele kommutaatoritele erinevaid
 kogukonnasõnesid (nõue~\ref{itm:req:diffcommunities}).
 
 \subsection{Netdisco}
-\TODO{Netdisco ülevaade}
+Netdisco on laia funktsionaalsusega võrguhaldustarkvara, mis on kirjutatud
+Perlis~\cite{netdiscoDocs}.
+Rakendus koosneb mitmest komponendist: taustal jooksev deemon, mis arvutivõrgu kohta andmeid pärib,
+käsurealiides ja veebiserver kasutajaliidese jaoks~\cite{netdiscoDocs}.
+Lisaks on rakenduse paigaldamiseks vajalik PostgreSQL andmebaas~\cite{netdiscoDocs}.
 
-\subsection{Foo}
-\TODO{kolmas sarnane lahendus?}
+Rakendus pakub võrguseireks hulgaliselt erinevaid vaateid, sealhulgas oskab Netdisco ka seadme
+naabreid kaardistada.
+Selleks pakub Netdisco vaadet
+\textit{Network Map}\footnote{\url{https://github.com/netdisco/netdisco/wiki/Network-Map}},
+mis koostab võrguseadmetest graafi.
+Antud funktsionaalsus täidab sama eesmärki, mis antud töö raames loodud rakendus.
+Näiteks saab kasutaja graafis tippe ümber paigutada, asetus salvestatakse ja taastatakse lehelt
+lahkudes.
+Lisaks pakub Netdisco lisafunktsionaalsust, näiteks saab reaalajas kuvatavaid seadmeid filtreerida,
+muuta graafi välimust ja liikuda erinevate seadmete vahel (kuvada järgmise seadme naabrid).
 
+Peamine erinevus Netdisco ja loodud rakenduse vahel on keerukus.
+Netdisco paigaldamine ja seadistamine on ajamahukam ja vajab rohkem ressursse.
+Netdisco eesmärk on aidata laiemalt võrguhaldusuega, loodud rakenduse eesmärk on teha vaid üht osa.
 
+\subsection{Switchmap}
+Switchmap\footnote{\url{https://sourceforge.net/projects/switchmap/}} on tööriist
+võrgukommutaatorite haldusinfo kogumiseks ja vaatamiseks.
+Rakendus kogub seadmetelt üle SNMP andmed ja koostab saadud informatsiooniga veebilehe.
+
+Erinevalt teistest kirjeldatud sarnastest rakendustest ei tee Switchmap andmete visualiseerimist,
+väljund on vormistatud hoopis tabelitena.
+Seetõttu sobib rakendus hästi kommutaatori ühendustest ülevaate saamiseks, aga kommutaatorite
+topoloogia uurimine -- kuigi kõik selleks vajalikud andmed kuvatakse --  on visuaalse ülevaate
+puudumise tõttu raskendatud.
 
 \newpage
 \section{Kasutatud tehnoloogiad} \label{usedTech}
-Antud peatükis tutvustatakse tehniliselt võrguprotokolle, teeke ning muid vahendeid, mida valminud
+Antud peatükis tutvustatakse prgorammeerimiskeeli, teeke ning muid vahendeid, mida valminud
 rakendus kasutab.
 
 \subsection{Keeled}
@@ -510,43 +594,10 @@ vajalik.
 Kasutajaliides on loodud kasutades HTML-i ja CSS-i.
 Lisaks on graafi kuvamiseks kasutatud programmeerimiskeelt Javascript.
 
-\subsection{CDP ja LLDP}
-CDP (\textit{Cisco Discovery Protocol}) ja LLDP (\textit{Link Layer Discovery Protocol}) on
-mõlemad võrguprotokollid ühendatud võrguseadmetele haldusinformatsiooni jagamiseks.
-LLDP ja CDP on funktsionaalsuse poolest küllaltki sarnased.
-Peamine erinevus kahe protokolli vahel on, et CDP on Cisco (võrguseadmete tootja)
-loodud ja hallatav omandprotokoll.~\cite{cdpInfo}
-LLDP seevastu on avatud ja seadmetootjate ülene protokoll, LLDP standardit haldab
-IEEE.~\cite{lldpInfo}
-
-\subsection{SNMP} \label{subsec:snmp}
-SNMP (\textit{Simple network management protocol}) on laialdaselt kasutatav
-võrguhaldusprotokoll, mis kuulub OSI mudelis rakenduskihti. Protokoll lihtsustab ja
-ühtlustab võrguseadmetelt haldusinfo küsimist.~\cite[151]{sissejuhVorg}
-
-Hallatavad seadmed hoiavad haldusinfot MIB-i struktuuris, mis on hierarhiline andmebaas.
-Igal objektil on oma unikaalne identifikaator (OID).~\cite[152]{sissejuhVorg}
-Valminud rakendus kasutab konkreetseid OID-sid, et kommutaatoritelt vajalikke andmeid küsida.
-
-SNMP protokoll defineerib päringute päises ka parameetri kogukonnasõne (\textit{community string}).
-Kogukonnasõne võimaldab teha päringutele triviaalset autentimist (nt lubada andmete pärimist
-vaid kindlate kogukonnasõnedega).~\cite[154-155]{sissejuhVorg}
-
-SNMP-st on 3 põhilist versiooni: 1, 2 ja 3.
-Valminud rakendus kasutab versiooni 2 (täpsemalt 2c).
-
-Valminud rakendus kasutab SNMP protokolli, et sisendiks saadud võrguseadmetelt CDP ja LLDP
-andmeid küsida.
-
 \subsection{easySNMP} \label{easySNMP}
 Kommutaatoritelt üle SNMP protokolli andmete küsimiseks kasutab rakendus Pythoni teeki easySNMP\@.
 Töö algfaasis katsetati alternatiivina ka teeki PySNMP\footnote{\url{http://snmplabs.com/pysnmp}}.
-Valik tehti aga easySNMP kasuks, kuna PySNMP on kommutaatoritega suhtlemisel tuntavalt aeglasem.
-~\cite{easySNMPDocs}
-
-Seadmetelt andmete küsimiseks kasutatakse session.walk()
-\footnote{\url{https://easysnmp.readthedocs.io/en/latest/session\_api.html}} funktsiooni, mis
-kasutab SNMP GetNextRequest operatsiooni.
+Valik tehti aga easySNMP kasuks, kuna PySNMP on kommutaatoritega suhtlemisel tuntavalt aeglasem~\cite{EasySNMPDocs}.
 
 \subsection{Cytoscape.js} \label{subsec:cyto}
 
@@ -556,7 +607,7 @@ otsingu lihtsuse huvides vaid graafidele spetsialiseerunud teekidele.
 Samuti pidi teek olema avatud lähtekoodiga ning toetama graafi tippudele hüpikvihjete lisamist.
 
 Kasutusele võeti Cytoscape.js\footnote{\url{http://js.cytoscape.org/}},
-mis vastas kirjeldatud nõuetele.~\cite{cytoscapeIntro}
+mis vastas kirjeldatud nõuetele~\cite{CytoscapeIntro}.
 Pärast esmaseid katsetusi demodega tõusis esile hea dokumentatsioon, mis tegi teegi
 kasutamise lihtsaks, lai valik erinevaid kujundusi ning graafide kuvamisel mõistlik
 ekraanipinna kasutamine.
@@ -603,7 +654,7 @@ debug = false
 Kasutaja saab määrata kommutaatorid, millelt naabrite info küsitakse.
 Seejuures saab igale kommutaatorile vajadusel määrata eraldi kogukonnasõne (vt~\ref{subsec:snmp}
 ja samuti nõue~\ref{itm:req:diffcommunities}).
-Lisaks on võimalik seadistada rakenduse logimist silumise tasemele(täpsemalt vt~\ref{logging}).
+Lisaks on võimalik seadistada rakenduse logimist silumise tasemele (täpsemalt vt~\ref{logging}).
 
 Rakendus kasutab sätetefaili parsimiseks Pythoni moodulit
 configparser\footnote{\url{https://docs.python.org/3.6/library/configparser.html}} ja sellest
@@ -628,36 +679,71 @@ tipp).
 Kui jah, siis talletatakse andmed, mis on vajalikud graafi serva kuvamiseks (nt pesade nimed,
 ühenduse kiirus).
 Samas sel juhul ei kasutata naabri kohta saadud andmeid.
-Teisisõnu - eelistatakse kommutaatori andmeid, mida kommutaator ise enda kohta andis,
+Teisisõnu -- eelistatakse kommutaatori andmeid, mida kommutaator ise enda kohta andis,
 mitte andmeid, mida temaga ühenduses olev kommutaator tema kohta andis.
 Kui naaber aga ei ole teine sisendiks saadud kommutaator (vaid kommutaatoriga ühendatud muu seade),
 siis on tema kohta saadud info meile oluline ja naabri info salvestatakse.
 
-Oluline on, et rakendus kasutab mõlemat protokolli: CDP ja LLDP\@.
-Kui kommutaator kasutab vaid üht, kasutatakse seda.
+Oluline on, et rakendus oskab kommutaatoritelt graafi koostamiseks andmeid küsida mõlema
+protokolli (nii CDP kui ka LLDP) kaudu.
 Kui kommutaator toetab mõlemat, siis lõpuks kuvatakse LLDP andmeid (küsitakse mõlemad,
 salvestatakse LLDP).
+Kui kommutaator kasutab vaid üht, kasutatakse seda.
 
 \subsubsection{Päritavad andmed} \label{dataAsked}
 Kommutaatorite käest küsitavad andmed võib jagada kaheks: info seadme enese kohta ja info
 kommutaatoriga ühenduses olevate seadmete (naabrite) kohta.
-Järgnevalt toome välja kõik andmed, mida kommutaatoritelt päritakse, sealhulgas ka SNMP
-identifikaatorid (OID-d, vt~\ref{subsec:snmp}), mida päringutes kasutati.
-\TODO{Tabel OID-dest ja kus neid andmeid kasutatakse?}
-\TODO{Iga OID kohta: oid, kas seadme kohta või naabri?, kus kasutajaliideses kuvatakse?}
-\TODO{sysName kasutatakse id-na -- kas tahan rääkida sellest, et miks? indeksid erinevate mib-de
-vahel erinevad}
+Tabelis~\ref{tab:oids} tuuakse välja kõik andmed, mida kommutaatoritelt päritakse, sealhulgas ka SNMP
+identifikaatorid (OID-d) ja MIB-struktuuride nimed (vt~\ref{subsec:snmp}).
+
+Seadmetelt andmete küsimiseks kasutatakse easySNMP (vt~\ref{easySNMP}) teegi funktsiooni
+session.walk()\footnote{\url{https://easysnmp.readthedocs.io/en/latest/session\_api.html}}.
+Funktsioon teeb sisemiselt SNMP GetNextRequest päringu.
+
+\begin{table}[p]
+\centering
+\caption{Muutujad, mis üle SNMP küsitakse}
+    \begin{tabularx}{\textwidth}{| X | X | X | X |}
+    \hline
+        OID & Muutuja nimi & MIB & Kirjeldus \\
+    \hline
+        1.3.6.1.4.1.9.9.23.1. 3.4.0 & cdpGlobalDeviceId & CISCO-CDP-MIB & Seadme id (nimi). Kasutatakse sisemiselt unikaalse identifikaatorina teiste CDP päringute jaoks \\
+    \hline
+        1.3.6.1.4.1.9.9.23.1. 2.1.1.6 & cdpCacheDeviceId & CISCO-CDP-MIB & Ühendatud seadme nimi \\
+    \hline
+        1.3.6.1.4.1.9.9.23.1. 2.1.1.4 & cdpCacheAddress & CISCO-CDP-MIB & Ühendatud seadme IP-aadress \\
+    \hline
+        1.3.6.1.4.1.9.9.23.1. 2.1.1.7 & cdpCacheDevice-Port & CISCO-CDP-MIB & Ühendatud seadme pesa kirjeldus (ühendatud seadme poolel) \\
+    \hline
+        1.3.6.1.2.1.2.2.1.2 & ifDesc & IF-MIB & Ühenduse kirjeldus (kommutaatori poolel) \\
+    \hline
+        1.0.8802.1.1.2.1.3. 3.0 & lldpLocSysName & LLDP-MIB & Seadme nimi. Kasutatakse sisemiselt unikaalse identifikaatorina teiste LLDP päringute jaoks \\
+    \hline
+        1.0.8802.1.1.2.1.3. 7.1.3 & lldpLocPortId & LLDP-MIB & Ühendatud pesa kirjeldus (kommutaatori poolel) \\
+    \hline
+        1.0.8802.1.1.2.1.4. 1.1.9 & lldpRemSysName & LLDP-MIB & Ühendatud seadme nimi \\
+    \hline
+        1.0.8802.1.1.2.1.4. 1.1.7 & lldpRemPortId & LLDP-MIB & Ühendatud pesa id (ühendatud seadme poolel) \\
+    \hline
+        1.0.8802.1.1.2.1.4. 1.1.8 & lldpRemPortDesc & LLDP-MIB & Ühendatud pesa kirjeldus (ühendatud seadme poolel) \\
+    \hline
+        1.0.8802.1.1.2.1.4. 2.1.4 & lldpRemManAddr-IfId & LLDP-MIB & Ühendatud seadme IP-aadress \\
+
+    \hline
+\end{tabularx}
+\label{tab:oids}
+\end{table}
 
 \subsubsection{Andmete faili salvestamine} \label{backendOutput}
 Et andmed jõuaksid tagasüsteemilt kasutajaliidesesse, kirjutatakse need Javascripti lähtekoodi
 faili.
 Põhjus, miks kasutatakse Javascripti faili (laiendiga \texttt{.js}) ja mitte näiteks JSON-formaati,
 on kirjeldatud peatükis~\ref{dataInput}.
-Andmed itereeritakse ja vormindatakse vastavalt \nameref{subsec:cyto} teegi sisendformaadile.
+Andmed itereeritakse ja vormindatakse vastavalt~\nameref{subsec:cyto} teegi sisendformaadile.
 Andmete faili kirjutamise implementatsioon on failis \texttt{src/output\_helper.py}.
 
 \subsubsection{Veahaldus}
-Vigadele kõige altim on kommutaatoritelt andmete küsimine - juhul kui kommutaatoriga ei saada
+Vigadele kõige altim on kommutaatoritelt andmete küsimine -- juhul kui kommutaatoriga ei saada
 ühendust (vale seadistus, võrguprobleem vms).
 Veahalduse roll on sel juhul tagada, et programmi töö jätkuks teistelt kommutaatoritelt andmete
 küsimisega.
@@ -700,8 +786,8 @@ printsiipi.
 See tähendab, et veebileht ei saa jooksutada koodi ning ei pääse ligi failidele, mis asuvad
 teistes domeenides.
 Et võimaldada ka doomenivälist ressursikaasutust on W3C loonud spetsifikatsiooni CORS
-(\textit{Cross-origin resource sharing}).
-~\cite{w3CORS}
+(\textit{Cross-origin resource sharing})~\cite{W3CORS}.
+
 
 Antud spetsifikatsiooni implementeerivad brauserid ise ning sellele on erinevad arendajad
 lähenenud erinevalt~\cite{localWebSec}.
@@ -714,12 +800,12 @@ brauseris tagasüsteemi poolt loodud faili lugemine õnnestub.
 \subsubsection{Tagasüsteemi loodud sisendi lugemine} \label{dataInput}
 Töö autor lootis algselt kommutaatorite andmed tagasüsteemilt kasutajaliidesele edastada
 JSON-formaadis, seejuures kasutada Pythoni ja Javascripti standardteeke.
-Katsetuste käigus tuli eelnevalt kirjeldatud erinev brauserite käitumine aga välja.
+Katsetuste käigus tuli aga välja eelnevalt kirjeldatud brauserite erinev käitumine.
 Chromium (ja Google Chrome) ei lubanud \texttt{file://} URI-skeemiga lokaalset faili üldse laadida.
 Firefox lubaks faili laadida, aga (alates küljendusmootori Gecko versioonist 1.9) seab ette nõuded
-faili asukohale~\cite{ffCORS}.
+faili asukohale~\cite{FFCORS}.
 
-Kasutaja brauserite kohta eeldusi teha ei tahetud - programm peaks töötama sõltumata brauserist.
+Kasutaja brauserite kohta eeldusi teha ei tahetud -- programm peaks töötama sõltumata brauserist.
 Üks lahendus oleks veebirakenduse kuvamiseks kasutada lokaalset veebiserverit ja küsida andmefail
 üle \texttt{http://} URI-skeemi
 \footnote{\url{https://stackoverflow.com/questions/46258449/cors-error-requests-are-only-supported-for-protocol-schemes-http-etc}}
@@ -737,7 +823,7 @@ ja servad.
 Antud fail laetakse kasutajaliideses Javascripti lähtekoodina ja seejärel on kommutaatorite
 andmed kasutajaliideses olemas ja neid saab kasutajale kuvada.
 
-\subsubsection{Graafi kuvamine}
+\subsubsection{Graafi kuvamine} \label{graphDisplay}
 Kuna sisendandmed on juba tagasüsteemi poolt teegile cytoscape.js loetavaks vormindatud, on
 graafi kuvamiseks vajalik vaid cytoscape.js seadistada.
 Peamine otsus, mis tuli teha, oli küljenduse
@@ -745,7 +831,7 @@ valimine\footnote{\url{http://js.cytoscape.org/\#layouts}}.
 Hea küljendus kasutab kogu ekraanipinna ära (jaotab tipud laiali) ja samuti asetab tipud nõnda, et
 servad ei kattuks (vt nõue~\ref{itm:req:graphLayout}).
 Autori katsetustest tuli välja, et küljendus \texttt{breadthfirst} kasutas ekraanipinda kõige
-mõistlikumalt - see võeti ka kasutusele.
+mõistlikumalt -- see võeti ka kasutusele.
 Välja tasub tuua ka \texttt{concentric} küljendus, mis toimis samuti hästi, ent mitme graafi
 kuvamisel jäi viimane hätta kogu ekraanipinna ära kasutamisega.
 
@@ -759,7 +845,16 @@ Servadeks on ühendused kommutaatorite vahel (nõue~\ref{itm:req:edgesSwitchConn
 Seejuures kuvatakse servadel ka mõlema kommutaatori pesa, mille kaudu nad ühendatud on.
 Algselt oli plaanis servadel kuvada ühenduste kiirused, kuid otsustati pesa nimede kasuks, sest
 nimi sisaldab lisaks pesa numbrile infot ka kiiruse kohta (Gi on 1000Mbps, Fa on 100Mbps jne).
-\TODO{Pilt graafist}
+
+Joonisel~\ref{fig:graph} on toodud kuvatõmmis programmi poolt loodud graafist.
+
+\begin{figure} [ht] %try to place the figure here (next option top of the page)
+\begin{center}
+\includegraphics[width=1\textwidth]{graph}
+    \caption{Näidis rakenduse poolt loodud graafist (nimed muudetud).}
+\label{fig:graph}
+\end{center}
+\end{figure}
 
 \subsubsection{Hüpikvihjed}
 Vastavalt nõuetele~\ref{itm:req:popouts} ja ~\ref{itm:req:popoutsOtherDevices}, peavad tippudele
@@ -777,11 +872,21 @@ väliselt eraldi, eesmärgiga, et korraga oleks võimalik avada mitu vihjet.
 
 Vihjete sisu koostatakse Javascriptiga, andmed saadakse samast tagasüsteemi poolt loodud
 sisendfailist, mille põhjal ka graaf tehakse.
-\TODO{Mis andmed kuvatakse}
+Hüpikvihjes kuvatakse kõik kommutaatoriga ühendatud seadmed, välja arvatud sätetes määratud
+kommutaatorid.
 Hüpikvihjete implementatsioon on samuti failis \texttt{src/web/code.js}.
-\TODO{Hüpikaknast näidispilt, kui koodis kõik asjad sinna lisatud on}
 
-\subsubsection{Kasutaja muudatuste salvestamine}
+Joonisel~\ref{fig:tooltip} on toodud kuvatõmmis programmi poolt loodud graafist.
+
+\begin{figure} [ht] %try to place the figure here (next option top of the page)
+\begin{center}
+\includegraphics[width=1\textwidth]{tooltip}
+    \caption{Näidis graafi hüpikvihjest (nimed ja IP-aadressid muudetud).}
+\label{fig:tooltip}
+\end{center}
+\end{figure}
+
+\subsubsection{Kasutaja muudatuste salvestamine} \label{saveChanges}
 Vastavalt nõudele~\ref{itm:req:saveChanges} pidi kasutajaliides salvestama kasutaja muudatused
 graafile (tippude asukohtade muudatused).
 Antud funktsionaalsust teek cytoscape.js otse ei paku, küll aga defineeritakse funktsioon
@@ -794,23 +899,71 @@ JSON andmed salvestatakse sõnena brauseri lokaalsesse andmesalvestisse
 Kui kasutaja veebilehe avab, laetakse ja taastatakse graafi paigutus andmesalvestist.
 Kui seda varasemalt salvestatud ei ole (esimene külastus), siis laetakse graaf andmefailist.
 
-Samuti lisati veebilehele nupp graafi paigutuse taastamiseks - graafi andmefailist uuesti
+Samuti lisati veebilehele nupp graafi paigutuse taastamiseks -- graafi andmefailist uuesti
 laadimiseks.
 
-%\newpage
-\section{Edasised tegevused}
-\TODO{Sissejuhatav tekst}
+\subsection{Rakenduse puudused}
+Järnevalt toob töö autor valminud rakenduse puudused ja võimalikud edasiarendused.
 
-\TODO{räsi arvutamine ja teate kuvamine, kui andmefail on taustal muutunud, kui see
-implementeeritud saab}
-\TODO{puudus graafi servade labelitega}
+\subsubsection{Tekst graafi servadel}
+Nagu peatükis~\ref{graphDisplay} mainiti, kuvatakse graafi servadel mõlema seadme (tipu) lähedal
+lipikud ühenduse pesa infoga.
+Seda tehakse teegi cytoscape.js poolt pakutava
+funktsionaalsusega Lipikud\footnote{\url{http://js.cytoscape.org/\#style/labels}}.
+Teek võimaldab määrata nihke (kauguse tipust), kus lipikut kuvada.
+Töö autor määras selleks kauguseks 90 pikslit.
+
+Üldjuhul töötavad lipikud nagu eeldada võiks -- lipik, mis on tipule lähemal, kirjeldab just selle
+tipu ühendust.
+Probleem ilmneb, kui programmi kasutaja veab tipud üksteisele väga lähedale.
+Kuna lipiku kaugus tipust on fikseeritud (90 pikslit), siis kui tipud on üksteisele lähemal kui ca
+180 pikslit,
+vahetavad lipikud kohad ja jääb mulje, et lipikud lähevad vahetusse (annavad infot teise tipu
+kohta).
+
+Töö autor proovis probleemi leevendamiseks tuua lipikud tippudele lähemale.
+Siis tekib aga probleem, et lipikud võivad jääda tipu alla, sest tipus kuvatakse seadme nimi (tipp
+on ristkülikukujuline, horisontaalselt lai).
+Lõpuks kasutusele võetud 90 pikslit oli kompromiss, mis tehtud katsetuste puhul kõige paremini töötas.
+
+\subsubsection{Andmete uuenemise märkamine}
+Rakenduse kasutajaliides salvestab muudatused, mida kasutaja graafile teeb (vt~\ref{saveChanges}).
+Tegelikult tähendab see ka seda, et salvestatakse tagasüsteemi poolt küsitud andmed ja need
+laetakse järgmisel külastusel.
+Seega on võimalik olukord, kus taustal on tagasüsteem kommutaatoritelt uued andmed küsinud, aga
+kasutajaliides kuvab veel vanu andmeid.
+
+Ideaalne lahendus oleks siin see, kui programm oskaks teha tagasüsteemi poolt loodud andmetele
+sisulist võrdlust.
+See tähendab, et saaks aru, kui on toimunud sisuline muutus, kus näiteks mõni seade on lisandunud
+või eemaldatud.
+Seejuures ignoreerides mittesisulisi muutusi, näiteks kui mõne seadme järjekord loetelus on
+vahetunud.
+
+Veidi lihtsam lahendus oleks, kui kasutajaliides salvestaks koos kasutaja muudatustega ka
+andmefailist (mille põhjal graaf loodi) arvutatud räsi.
+Antud räsi saaks igal veebilehe avamisel (kui laetakse kasutaja poolt muudetud graaf) võrrelda
+andmefaili räsiga ning kui need on muutunud, kasutajale teade kuvada.
 
 \clearpage
 \section{Kokkuvõte}
 
-\TODO{what did you do?}
-\TODO{What are the results?}
-\TODO{future work?}
+Antud bakalaureusetöö raames kirjutas autor rakenduse, mis abistab võrgutopoloogia
+visualiseerimisel.
+Rakendus on ennekõike mõeldud võrguadministraatoritele oma kontrolli all olevate seadmete (peamiselt
+võrgukommutaatorite) topoloogia vaatamimseks ja probleemide avastamiseks.
+Selleks küsib rakendus sisendiks antud seadmetelt üle SNMP andmed seadme enese ja tema naabrite
+kohta, töötleb vastused ja koostab tulemustest veebilehe graafiga.
+
+Rakendust testiti Cybernetica AS kohtvõrgus.
+Arenduse käigus kasutas töö autor programmi testimiseks piiratud arvu võrguseadmeid.
+Arendusprotsessi lõpus testis programmi ka võrguadministraator suurema hulga võrguseadmetega ja
+rakendus täitis seatud eesmärgi.
+
+Rakenduse edasiseks täiendamiseks on mitmeid võimalusi.
+Kasutusmugavus paraneks, kui rakendus saaks ise aru, kui taustal on andmed muutunud (seadmete
+topoloogia muutus võrreldes viimase seisuga) ja annaks sellest kasuatajaliideses märku.
+Samuti saaks lisada rohkem andmeid, mida programm seadmete kohta küsib ja kuvab.
 
 
 

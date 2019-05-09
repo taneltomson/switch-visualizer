@@ -23,4 +23,5 @@ See https://easysnmp.readthedocs.io/en/latest/#installation for instructions
 * `$ cp config.ini.sample config.ini`
 * Edit config.ini to your needs
 * Run using `$ python3 src/main.py`. This creates a file `src/web/data.js` which stores gathered data and is used by the web page.
-* Resulting web page is accessible from src/web/index.html using web browser
+* Resulting web page is located in `src/web` directory and accessible from `src/web/index.html` 
+using web browser (file:// is fine)
