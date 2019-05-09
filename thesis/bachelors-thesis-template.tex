@@ -316,12 +316,12 @@ Finished application was tested in the local area network of Cybernetica AS.
 \vspace*{1ex}
 
 \noindent\textbf{Keywords:}\\
-\TODO{List of keywords}
+Local area network topology, visualization, SNMP, CDP, LLDP
 %Layout, formatting, template
 
 \vspace*{1ex}
 
-\noindent\textbf{CERCS:}\TODO{CERCS code and name:~\url{https://www.etis.ee/Portal/Classifiers/Details/d3717f7b-bec8-4cd9-8ea4-c89cd56ca46e}}
+\noindent\textbf{CERCS:} P175 (Informatics, systems theory)
 
 \vspace*{1ex}
 }}%\newcommand\EngInfo
@@ -352,12 +352,12 @@ Valminud rakendust testiti Cybernetica AS kohtvõrgus.
 \vspace*{1ex}
 
 \noindent\textbf{Võtmesõnad:}\\
-\TODO{List of keywords}
+Kohtvõrgu topoloogia, visualiseerimine, SNMP, CDP, LLDP
 %Layout, formatting, template
 
 \vspace*{1ex}
 
-\noindent\textbf{CERCS:}\TODO{CERCS kood ja nimetus:~\url{https://www.etis.ee/Portal/Classifiers/Details/d3717f7b-bec8-4cd9-8ea4-c89cd56ca46e}}
+\noindent\textbf{CERCS:} P175 (Informaatika, süsteemiteooria)
 
 \vspace*{1ex}
 }}%\newcommand\EstInfo
@@ -373,22 +373,14 @@ Valminud rakendust testiti Cybernetica AS kohtvõrgus.
 
 
 % Remember to remove this from the final thesis version
-\newpage
-\listoftodos[Unsolved issues]
-\TODO{Eemalda lõplikust versioonist}
+% \newpage
+% \listoftodos[Unsolved issues]
+% \TODO{Eemalda lõplikust versioonist}
 % END OF TODO PAGE
-
-
-
-
-
-
 
 
 \newpage
 \section{Sissejuhatus}
-
-\TODO{ideaga vead üle vaadata}
 
 Võrgukommutaator (inglise keeles \textit{switch}, edaspidi ka lihtsalt kommutaator) on
 võrguseade, mis ühendab seadmeid kohtvõrku.
@@ -444,8 +436,9 @@ SNMP (\textit{Simple network management protocol}) on laialdaselt kasutatav
 võrguhaldusprotokoll, mis kuulub OSI mudelis rakenduskihti~\cite[151]{sissejuhVorg}.
 Protokoll lihtsustab ja ühtlustab võrguseadmetelt haldusinfo küsimist~\cite[151]{sissejuhVorg}.
 
-Hallatavad seadmed hoiavad haldusinfot MIB-i struktuuris, mis on hierarhiline andmebaas~\cite[152]{sissejuhVorg}.
-Igal objektil on oma unikaalne identifikaator (OID)~\cite[152]{sissejuhVorg}.
+Hallatavad seadmed hoiavad haldusinfot MIB (\textit{Management Information Base}) struktuuris,
+mis on hierarhiline andmebaas~\cite[152]{sissejuhVorg}.
+Igal objektil on oma unikaalne identifikaator (OID, \textit{Object Identifier})~\cite[152]{sissejuhVorg}.
 Valminud rakendus kasutab konkreetseid OID-sid, et kommutaatoritelt vajalikke andmeid küsida.
 
 SNMP protokoll defineerib päringute päises ka parameetri kogukonnasõne (\textit{community string}).
@@ -455,8 +448,7 @@ vaid kindlate kogukonnasõnedega)~\cite[154-155]{sissejuhVorg}.
 SNMP-st on 3 põhilist versiooni: 1, 2 ja 3~\cite[151]{sissejuhVorg}.
 Valminud rakendus kasutab versiooni 2 (täpsemalt 2c).
 
-Valminud rakendus kasutab SNMP protokolli, et sisendiks saadud võrguseadmetelt CDP ja LLDP
-andmeid küsida.
+Valminud rakendus kasutab SNMP protokolli, et võrguseadmetelt CDP ja LLDP andmeid küsida.
 
 
 \newpage
@@ -467,6 +459,8 @@ kompromissidega pakkuda suurt funktsionaalsust.
 Rakenduse paigaldamine ja käivitamine peab olema lihtne, ei tohi eeldada ühegi suurema
 võrguhaldustarkvara olemasolu.
 Võrguadministraator peaks saama seda lihtsasti käsitsi käivitada, vastavalt enda töövoole.
+Samuti peab võimalik olema programmmi automaatne perioodiline käivitamine ja tulemuse (genereeritud
+veebilehe) serveerimine vabalt valitud veebiserveri kaudu.
 
 Et kõik rakenduse eesmärkidest ühtmoodi aru saaksid, fikseeriti töö algusjärgus rakenduse nõuded,
 mis järnevalt välja tuuakse.
@@ -481,26 +475,29 @@ Rakenduse jooksutamiseks on peamine riistvaraline nõue, et masinal peab olema l
 millelt andmeid küsitakse.
 Rakendus arendati peamiselt operatsioonisüsteemi Linux silmas pidades ja selle jaoks koostati ka
 käivitamisjuhend ja teostati rakenduse testimine.
-On võimalik, et rakendus toimib ka teistel operatsioonisüsteemidel, ent seda ei testitud.
+On tõenäoline, et rakendus toimib ka teistel operatsioonisüsteemidel, ent seda ei testitud.
 
 \subsection{Rakenduse nõuded}
 \begin{enumerate}
     \item Rakendus peab toimima vähemalt operatsioonisüsteemil Linux.
-    \item Rakenduse käivitamine toimub käsurealt, vajalik python (koos vähemalt ühe SNMP teegiga)
-    ja SNMP.
+    \item Programmeerimmiskeeleks sobib Python.
+    \item Rakenduse käivitamine toimub käsurealt.
+    \item Võimalusel kasutame mõnda olemasolevat SNMP klienditeeki.
     \item Rakenduse sisendiks on ühe või mitme võrgukommutaatori aadress ja seadmetes seadistatud
     SNMP kommuuni nimi.
     \item \label{itm:req:diffcommunities} Kui antakse ette mitu seadet, on võimalus määrata
     erinevatele seadmetele erinevad SNMP kommuunide nimed.
 
-    \item Rakendus küsib igalt sisendiks saadud seadmelt LLDP/CDP andmed (nimi, IP-aadress,
-    MAC-aadress; ühenduste füüsiline port, nimi, IP-aadress, MAC-aadress).
+    \item Rakendus küsib igalt sisendiks saadud seadmelt LLDP/CDP andmed tema enese kohtha (nimi,
+    IP-aadress, ühenduste kirjeldused) ja andmed iga tema naabri kohta (nimi, IP-aadress,
+    ühenduse kirjeldus).
     \item Rakendus töötleb ja vormindab saadud andmed.
     \item Tekkinud vead kuvatakse kasutajale mõistlikult (mis juhtus, mida teha).
 
     \item Rakendus loob antud andmete põhjal staatilise veebilehe (.html), kus kuvatakse
     graaf võrgukommutaatorite kohta.
-    \item Staatilise veebilehe vaatamiseks pole vaja internetiühendust (CSS ja JS lokaalsed).
+    \item Staatilise veebilehe vaatamiseks pole vaja internetiühendust (CSS ja JS on lähtekoodiga
+    kaasas, mitte ei laeta üle võrgu).
     \item Veebilehte saab vaadata ka ilma veebiserverita (üle \texttt{file://} URI-skeemi).
     \item \label{itm:req:nodesSwitches} Graafi tipud on võrgukommutaatorid.
     \item \label{itm:req:edgesSwitchConnections} Graafi servad tippude vahel on võrgukommutaatorite
@@ -667,7 +664,7 @@ Sätete lugemise implementatsioon on failis \texttt{src/config\_helper.py}.
 
 Kui sätetefailist on seadistatud kommutaatorid loetud, asutakse neilt andmeid küsima.
 Seda tehakse ükshaaval, üle kommutaatorite itereerides.
-Vastuseks saadud andmed hoiustatakse sisemiselt sõnastikus, seejuures jagatakse iga
+Vastuseks saadud andmed hoiustab programm mälus (sõnastikuna), seejuures jagatakse iga
 kommutaatori käest saadud andmed kolmeks:
 \begin{enumerate}
     \item kommutaatori enda andmed (graafis tipud)
@@ -676,7 +673,7 @@ kommutaatori käest saadud andmed kolmeks:
 \end{enumerate}
 Iga saadud naabri korral kontrollitakse, kas see on seadistatud kommutaator (ehk graafis teine
 tipp).
-Kui jah, siis talletatakse andmed, mis on vajalikud graafi serva kuvamiseks (nt pesade nimed,
+Kui jah, siis talletatakse andmed, mis on vajalikud graafi serva kuvamiseks (nt portide nimed,
 ühenduse kiirus).
 Samas sel juhul ei kasutata naabri kohta saadud andmeid.
 Teisisõnu -- eelistatakse kommutaatori andmeid, mida kommutaator ise enda kohta andis,
@@ -687,7 +684,7 @@ siis on tema kohta saadud info meile oluline ja naabri info salvestatakse.
 Oluline on, et rakendus oskab kommutaatoritelt graafi koostamiseks andmeid küsida mõlema
 protokolli (nii CDP kui ka LLDP) kaudu.
 Kui kommutaator toetab mõlemat, siis lõpuks kuvatakse LLDP andmeid (küsitakse mõlemad,
-salvestatakse LLDP).
+meelde jäetakse LLDP).
 Kui kommutaator kasutab vaid üht, kasutatakse seda.
 
 \subsubsection{Päritavad andmed} \label{dataAsked}
@@ -701,36 +698,36 @@ session.walk()\footnote{\url{https://easysnmp.readthedocs.io/en/latest/session\_
 Funktsioon teeb sisemiselt SNMP GetNextRequest päringu.
 
 \begin{table}[p]
+\small
 \centering
 \caption{Muutujad, mis üle SNMP küsitakse}
-    \begin{tabularx}{\textwidth}{| X | X | X | X |}
+    \begin{tabular}{| p{4cm} | p{3.2cm} | p{1.2cm} | p{4.3cm} |}
     \hline
         OID & Muutuja nimi & MIB & Kirjeldus \\
     \hline
-        1.3.6.1.4.1.9.9.23.1. 3.4.0 & cdpGlobalDeviceId & CISCO-CDP-MIB & Seadme id (nimi). Kasutatakse sisemiselt unikaalse identifikaatorina teiste CDP päringute jaoks \\
+        1.3.6.1.4.1.9.9.23.1.3.4.0 & cdpGlobalDeviceId & CISCO-CDP-MIB & Seadme id (nimi). Kasutatakse sisemiselt unikaalse identifikaatorina teiste CDP päringute jaoks \\
     \hline
-        1.3.6.1.4.1.9.9.23.1. 2.1.1.6 & cdpCacheDeviceId & CISCO-CDP-MIB & Ühendatud seadme nimi \\
+        1.3.6.1.4.1.9.9.23.1.2.1.1.6 & cdpCacheDeviceId & CISCO-CDP-MIB & Ühendatud seadme nimi \\
     \hline
-        1.3.6.1.4.1.9.9.23.1. 2.1.1.4 & cdpCacheAddress & CISCO-CDP-MIB & Ühendatud seadme IP-aadress \\
+        1.3.6.1.4.1.9.9.23.1.2.1.1.4 & cdpCacheAddress & CISCO-CDP-MIB & Ühendatud seadme IP-aadress \\
     \hline
-        1.3.6.1.4.1.9.9.23.1. 2.1.1.7 & cdpCacheDevice-Port & CISCO-CDP-MIB & Ühendatud seadme pesa kirjeldus (ühendatud seadme poolel) \\
+        1.3.6.1.4.1.9.9.23.1.2.1.1.7 & cdpCacheDevicePort & CISCO-CDP-MIB & Ühendatud seadme pordi kirjeldus (ühendatud seadme poolel) \\
     \hline
         1.3.6.1.2.1.2.2.1.2 & ifDesc & IF-MIB & Ühenduse kirjeldus (kommutaatori poolel) \\
     \hline
-        1.0.8802.1.1.2.1.3. 3.0 & lldpLocSysName & LLDP-MIB & Seadme nimi. Kasutatakse sisemiselt unikaalse identifikaatorina teiste LLDP päringute jaoks \\
+        1.0.8802.1.1.2.1.3.3.0 & lldpLocSysName & LLDP-MIB & Seadme nimi. Kasutatakse sisemiselt unikaalse identifikaatorina teiste LLDP päringute jaoks \\
     \hline
-        1.0.8802.1.1.2.1.3. 7.1.3 & lldpLocPortId & LLDP-MIB & Ühendatud pesa kirjeldus (kommutaatori poolel) \\
+        1.0.8802.1.1.2.1.3.7.1.3 & lldpLocPortId & LLDP-MIB & Ühendatud pordi kirjeldus (kommutaatori poolel) \\
     \hline
-        1.0.8802.1.1.2.1.4. 1.1.9 & lldpRemSysName & LLDP-MIB & Ühendatud seadme nimi \\
+        1.0.8802.1.1.2.1.4.1.1.9 & lldpRemSysName & LLDP-MIB & Ühendatud seadme nimi \\
     \hline
-        1.0.8802.1.1.2.1.4. 1.1.7 & lldpRemPortId & LLDP-MIB & Ühendatud pesa id (ühendatud seadme poolel) \\
+        1.0.8802.1.1.2.1.4.1.1.7 & lldpRemPortId & LLDP-MIB & Ühendatud pordi id (ühendatud seadme poolel) \\
     \hline
-        1.0.8802.1.1.2.1.4. 1.1.8 & lldpRemPortDesc & LLDP-MIB & Ühendatud pesa kirjeldus (ühendatud seadme poolel) \\
+        1.0.8802.1.1.2.1.4.1.1.8 & lldpRemPortDesc & LLDP-MIB & Ühendatud pordi kirjeldus (ühendatud seadme poolel) \\
     \hline
-        1.0.8802.1.1.2.1.4. 2.1.4 & lldpRemManAddr-IfId & LLDP-MIB & Ühendatud seadme IP-aadress \\
-
+        1.0.8802.1.1.2.1.4.2.1.4 & lldpRemManAddrIfId & LLDP-MIB & Ühendatud seadme IP-aadress \\
     \hline
-\end{tabularx}
+\end{tabular}
 \label{tab:oids}
 \end{table}
 
@@ -796,14 +793,15 @@ päritolu (\textit{origin}) definitsioon CORS-i spetsifikatsioonis
 lahtine~\cite[peatükk 4, punkt 4]{ietfOrigin}.
 See tähendab, et brauserid käituvad antud olukorras erinevalt ja ei ole garantiid, et igas
 brauseris tagasüsteemi poolt loodud faili lugemine õnnestub.
+Chromium (ja Google Chrome) ei lubanud veebilehel \texttt{file://} URI-skeemiga lokaalset faili
+üldse laadida.
+Firefox lubaks faili laadida, aga (alates küljendusmootori Gecko versioonist 1.9) seab ette nõuded
+faili asukohale~\cite{FFCORS}.
 
 \subsubsection{Tagasüsteemi loodud sisendi lugemine} \label{dataInput}
 Töö autor lootis algselt kommutaatorite andmed tagasüsteemilt kasutajaliidesele edastada
 JSON-formaadis, seejuures kasutada Pythoni ja Javascripti standardteeke.
 Katsetuste käigus tuli aga välja eelnevalt kirjeldatud brauserite erinev käitumine.
-Chromium (ja Google Chrome) ei lubanud \texttt{file://} URI-skeemiga lokaalset faili üldse laadida.
-Firefox lubaks faili laadida, aga (alates küljendusmootori Gecko versioonist 1.9) seab ette nõuded
-faili asukohale~\cite{FFCORS}.
 
 Kasutaja brauserite kohta eeldusi teha ei tahetud -- programm peaks töötama sõltumata brauserist.
 Üks lahendus oleks veebirakenduse kuvamiseks kasutada lokaalset veebiserverit ja küsida andmefail
@@ -842,9 +840,9 @@ Graafi kuvamine on implementeeritud failis \texttt{src/web/code.js}.
 
 Graafi tippudeks on kommutaatorid, millelt andmeid küsiti (nõue~\ref{itm:req:nodesSwitches}).
 Servadeks on ühendused kommutaatorite vahel (nõue~\ref{itm:req:edgesSwitchConnections}).
-Seejuures kuvatakse servadel ka mõlema kommutaatori pesa, mille kaudu nad ühendatud on.
-Algselt oli plaanis servadel kuvada ühenduste kiirused, kuid otsustati pesa nimede kasuks, sest
-nimi sisaldab lisaks pesa numbrile infot ka kiiruse kohta (Gi on 1000Mbps, Fa on 100Mbps jne).
+Seejuures kuvatakse servadel ka mõlema kommutaatori port, mille kaudu nad ühendatud on.
+Algselt oli plaanis servadel kuvada ühenduste kiirused, kuid otsustati pordi nimede kasuks, sest
+nimi sisaldab lisaks pordi numbrile infot ka kiiruse kohta (Gi on 1000Mbps, Fa on 100Mbps jne).
 
 Joonisel~\ref{fig:graph} on toodud kuvatõmmis programmi poolt loodud graafist.
 
@@ -898,16 +896,21 @@ JSON andmed salvestatakse sõnena brauseri lokaalsesse andmesalvestisse
 (localStorage\footnote{\url{https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage}}).
 Kui kasutaja veebilehe avab, laetakse ja taastatakse graafi paigutus andmesalvestist.
 Kui seda varasemalt salvestatud ei ole (esimene külastus), siis laetakse graaf andmefailist.
-
+Brauseri lokaalne andmesalvesti on domeenipõhine, seega kui antud rakendut on erinevate domeenide
+taga, siis need üksteist ei sega.
 Samuti lisati veebilehele nupp graafi paigutuse taastamiseks -- graafi andmefailist uuesti
 laadimiseks.
+
+\subsection{Lähtekood ja litsents}
+Rakenduse lähtekood on üleval Github keskkonnas: \url{https://github.com/taneltomson/switch-visualizer}.
+Autor valis lähtekoodile MIT-litsentsi.
 
 \subsection{Rakenduse puudused}
 Järnevalt toob töö autor valminud rakenduse puudused ja võimalikud edasiarendused.
 
 \subsubsection{Tekst graafi servadel}
 Nagu peatükis~\ref{graphDisplay} mainiti, kuvatakse graafi servadel mõlema seadme (tipu) lähedal
-lipikud ühenduse pesa infoga.
+lipikud ühenduse pordi infoga.
 Seda tehakse teegi cytoscape.js poolt pakutava
 funktsionaalsusega Lipikud\footnote{\url{http://js.cytoscape.org/\#style/labels}}.
 Teek võimaldab määrata nihke (kauguse tipust), kus lipikut kuvada.
@@ -945,6 +948,19 @@ andmefailist (mille põhjal graaf loodi) arvutatud räsi.
 Antud räsi saaks igal veebilehe avamisel (kui laetakse kasutaja poolt muudetud graaf) võrrelda
 andmefaili räsiga ning kui need on muutunud, kasutajale teade kuvada.
 
+\subsubsection{Ilma veebiserverita mitme rakenduse instanssi kasutamine}
+Andmete brauseri lokaalsesse andmesalvestisse salvestamisega on ka teine probleem.
+Nagu peatükis \ref{saveChanges} juba mainiti, on brauseri andmesalvesti domeenipõhine.
+
+Samas vähemalt Chromium arvestab kõik failid, mis on avatud üle \texttt{file://} URI-skeemi ühte
+domeeni kuuluvaks.
+See tähendab, et ilma veebiserverita saab korraga kasutada vaid üht rakenduse instanssi, või
+täpsemalt vaadata vaid üht tagasüsteemi poolt loodud graafi korraga.
+
+Probleemi saaks lahendada, kui lisada (juhul, kui kasutajaliidest vaadatakse üle \texttt{file://}
+URI-skeemi) ka märge faili asukoha kohta ja kasutajaliidese avamisel kontrollida, et varasemalt
+salvestatud andmed on salvestatud sama rakenduse instanssi poolt.
+
 \clearpage
 \section{Kokkuvõte}
 
@@ -954,6 +970,11 @@ Rakendus on ennekõike mõeldud võrguadministraatoritele oma kontrolli all olev
 võrgukommutaatorite) topoloogia vaatamimseks ja probleemide avastamiseks.
 Selleks küsib rakendus sisendiks antud seadmetelt üle SNMP andmed seadme enese ja tema naabrite
 kohta, töötleb vastused ja koostab tulemustest veebilehe graafiga.
+
+Kuigi rakendus loodi vaid kommutaatorite topoloogiat silmas pidades, ei pea programmi kasutamisel
+piirduma rangelt 2. kihi kohtvõrguga.
+Ka ruuterid ja tulemüürid oskavad üle SNMP andmeid jagada, nii et teoreetiliselt on võimalik
+programmiga luua graafe ka üle mitme kohtvõrgu.
 
 Rakendust testiti Cybernetica AS kohtvõrgus.
 Arenduse käigus kasutas töö autor programmi testimiseks piiratud arvu võrguseadmeid.
@@ -1248,8 +1269,11 @@ Samuti saaks lisada rohkem andmeid, mida programm seadmete kohta küsib ja kuvab
   \addcontentsline{toc}{section}{Lisad}}
 
 
-\section*{I. Glossary}
-\addcontentsline{toc}{subsection}{I. Glossary}
+\section*{I. Lähtekood}
+Programmi lähtekood ja kasutusjuhend on saadaval aadressil:
+\url{https://github.com/taneltomson/switch-visualizer}
+
+%\addcontentsline{toc}{subsection}{I. Glossary}
 
 \newpage
 
@@ -1306,7 +1330,7 @@ Mina, \textbf{Tanel Tomson},
 \item
 annan Tartu Ülikoolile tasuta loa (lihtlitsentsi) enda loodud teose
 
-\textbf{Võrgukommutaatorite visualiseerimine}
+\textbf{Võrgutopoloogia visualiseerimine}
 
 mille juhendaja on Meelis Roos
 
@@ -1325,8 +1349,7 @@ kinnitan, et lihtlitsentsi andmisega ei rikuta teiste isikute intellektuaalomand
 \end{enumerate}
 
 \noindent
-\TODO{kuupäev}
-Tartus, pp.kk.aaaa
+Tartus, 10.03.2019
 }}%\newcommand\EstLicence
 
 
