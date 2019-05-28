@@ -189,7 +189,7 @@ def walk_interface_descs(session, save_to):
             continue
 
         if_index = get_cdp_index_from_string(item.oid_index)
-        if_desc = shorten_port_name(item.value)
+        if_desc = shorten_port_name(item.value.replace('"', ''))
         log.debug('walk_interface_descs - ifDesc: %s ifIndex: %s', if_desc, if_index)
 
         if if_index in save_to.keys() and 'srcPort' not in save_to[if_index].keys():
